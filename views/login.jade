@@ -1,0 +1,52 @@
+extends layout
+
+block content
+
+    .container
+        section.login-block.active
+            .container
+            .row
+            .col-md-4.login-sec
+                h2.text-center Login Now
+
+                form.login-form.col-md-6.offset-md-3(method='post', action='/login')
+                    .form-group
+                        label.text-uppercase Username
+                        input.form-control(placeholder='', type='text' name ="username")
+                    .form-group
+                        label.text-uppercase Password
+                        input.form-control(placeholder='', type='password' name="password")
+                    .form-check
+                        label.form-check-label
+                            input.form-check-input(type='checkbox').float-left
+                            label.ml-4 Remember Me
+                        button.btn.btn-login.float-right(type='submit') Submit
+
+            .col-md-8.banner-sec
+                #carouselExampleIndicators.carousel.slide(data-ride='carousel')
+                    ol.carousel-indicators
+                        li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+                        li(data-target='#carouselExampleIndicators', data-slide-to='1')
+                        li(data-target='#carouselExampleIndicators', data-slide-to='2')
+                    .carousel-inner(role='listbox')
+                        .carousel-item.active
+                            img.d-block.img-fluid(src='https://static.pexels.com/photos/33972/pexels-photo.jpg', alt='First slide')
+                            .carousel-caption.d-none.d-md-block
+                                .banner-text
+                                    h2 This is Heaven
+                                    p
+                                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        .carousel-item
+                            img.d-block.img-fluid(src='https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg', alt='First slide')
+                            .carousel-caption.d-none.d-md-block
+                                .banner-text
+                                    h2 This is Heaven
+                                    p
+                                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        .carousel-item
+                            img.d-block.img-fluid(src='https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg', alt='First slide')
+                            .carousel-caption.d-none.d-md-block
+                                .banner-text
+                                    h2 This is Heaven
+                                    p
+                                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation

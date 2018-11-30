@@ -1,0 +1,63 @@
+extends ../layout
+
+block content
+
+    div.m-5.m-5.m-5.sortable.draggable
+
+        if boards
+            each  board, i  in boards
+                if (i+1)%5===0 && i!==0
+
+                .card.m-2.d-inline-block.ui-state-default.draggable(style='width: 25rem;')
+                    .card-body
+                        img.card-img(src="images/homeicon.jpg", alt='Card image cap')
+                        h5.card-title  yeah
+                        h6.card-subtitle.mb-2.text-muted Card subtitle
+                        p.card-text
+                            | #{board.description}
+                        a(href='/boards/display/'+board.board_name) display board
+                        a.card-link(href='/boards/delete/'+board.board_name) delete board
+
+        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#addboardModal').m-3.ml-5
+            | add board
+
+
+
+
+
+
+
+
+
+
+
+    // Modal
+    #addboardModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Add board
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    form.col-md-6.offset-md-3(method='post', action='/boards/add').m-1.mt-0
+                        .form-group.m-2
+                            label board name
+                            input.form-control(name='name', type='text', placeholder='Enter board name')
+                        .form-group.m-2
+                            label(for='comment') description
+                            textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
+
+
+
+                          button.btn.btn-primary(type='submit', value='Submit') Save changes
+
+
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
+
+
+
+

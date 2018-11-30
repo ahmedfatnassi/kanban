@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+    h1 Register
+    p Please register using the form below
+        form.col-md-6.offset-md-3(method='post', action='/users/register')
+                .form-group
+                    input.form-control(name='username', type='text', placeholder='Enter Username')
+                .form-group
+                    input.form-control(name='email', type='text', placeholder='your email')
+                .form-group
+                    input.form-control(name='password', type='password', placeholder='Enter Password')
+                .form-group
+                    input.form-control(name='password2', type='password', placeholder='Confirm Password')
+                    div.row.justify-content-center
+                .form-group
+                    input.form-check-input(type='checkbox',name='admin')
+                    label.form-check-label(for='gridCheck')
+                        | admin
+
+                .form-group.col-md-4
+
+                    input#gridCheck.form-check-input(type='checkbox')
+                    label.form-check-label(for='gridCheck')
+                        | Check me out
+                button.btn.btn-primary(type='submit',value='Submit') Sign in
+
+                button.btn.btn-danger(name='cancel', href='/') Cancel
+
+
+
+
+    script(src='javascripts/jquery.min.js')
+    script(src='javascripts/main.js')

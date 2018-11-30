@@ -1,0 +1,64 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title Kanban
+        // Bootstrap core CSS
+        link(href='/stylesheets/bootstrap.min.css', rel='stylesheet')
+        link(href='/stylesheets/style.css', rel='stylesheet')
+        //script(src="/javascript/jquery.slim.js")
+        //script(src="/javascript/bootstrap.js")
+        //script(src="/javascript/jquery.js")
+        //script(src='https://ajax.googleapis.com/ajax/libs/jquery/4.0.0/jquery.min.js')
+        //script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+
+
+
+    body
+        // Navigation
+        nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.static-top
+            .container
+                a.navbar-brand(href='/index') Kanban app
+                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarResponsive.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto.float-right
+                        if !user
+                            li.nav-item
+                                a.nav-link(href='/boards')
+                                    | boards
+                                    span.sr-only (current)
+                            li.nav-item
+                                a.nav-link(href='/index') About
+                            li.nav-item
+                                a.nav-link(href='/index') Services
+                            li.nav-item
+                                a.nav-link(href='/settings/') settings
+
+                            li.nav-item
+                                a.nav-link(href='/index/logout') Logout
+                            li.nav-item.dropdown
+                                a#navbarDropdown.nav-link.dropdown-toggle(href='', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                    | Dropdown
+                                .dropdown-menu(aria-labelledby='navbarDropdown')
+                                    a.dropdown-item(href='/users//register') register
+                                    a.dropdown-item(href='#') Another action
+                                    .dropdown-divider
+                                    a.dropdown-item(href='#') Something else here
+
+
+
+
+
+        !=messages()
+        block content
+        script(src='/javascripts/jquery.min.js', rel='script')
+        script(src='/javascripts/bootstrap.min.js', rel='script')
+        script(src='/javascripts/main.js', rel='script')
+
+
+

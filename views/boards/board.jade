@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+
+    if board.columns
+        each  column, i  in columns
+            .card.w-25.d-inline-block.h-100
+                .card-header
+                    | #{column.column_name}
+                .card-body
+                    h5.card-title Special title treatment
+                    p.card-text With supporting text below as a natural lead-in to additional content.
+                    a.btn.btn-primary(href='/board/delete/'+ column) Go somewhere
+
+
+        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
+
+
+
+        #addcolumnModal.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria-hidden= 'true')
+
+            .modal-dialog(role='document')
+                .modal-content
+                    .modal-header
+                        h5#exampleModalLabel.modal-title Add column
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        form.col-md-6.offset-md-3(method='post', action='/board/addcolumn').m-1.mt-0
+                            .form-group.m-2
+                                label board name
+                                input.form-control(name='name', type='text', placeholder='Enter column name')
+
+
+
+
+                            button.btn.btn-primary(type='submit', value='Submit') Save changes
+
+
+                    .modal-footer
+                        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
