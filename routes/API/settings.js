@@ -104,16 +104,39 @@ router.get('/',ensureauthenticated, function (req, res) {
             users=usersDB ;
         }
 
-   /* column.getAllColums(function (err, columnDB) {
-        if (err) throw err;
-        if (!columnDB) {
-            columnDB=[];
-            columns=columnDB;
-        }*/
+
 
     res.render(baseDIR+'setting',{title:"setting",layout:'layout',boards:boardsDB,users:usersDB,columns:columns})
     });
     //});
 });
+});
+router.get('/delete/:userId',ensureauthenticated,function (req,res) {
+    user.getAllUsers(function (err ,users) {
+        if(users.length!=0) {
+            user.getUserById(req.params.userId, function (err) {
+
+            });
+        }else{
+            console.log('can\'t delete last user!');
+            return done(null, false, {message: 'can\'t delete last user!'});
+        }
+    }) ;
+});
+router.get('/delete/:name',ensureauthenticated,function (req,res,next){
+    board.findOneAndDelete({board_name:req.params.name}, function (err,board) {                     //  to delete some testing board
+        if (err) throw err;
+
+        console.log("board "+req.params.name+" success delete "+board)  ;
+    });
+
+});
+router.get('/delete/:name',ensureauthenticated,function (req,res,next){
+    board.deleteOne({board_name:req.params.name}, function (err) {                     //  to delete some testing board
+        if (err) throw err;
+        console.log("board "+req.params.name+" success delete ")  ;
+    });
+    res.location('/boards/');
+    res.redirect('/boards/');
 });
 module.exports = router;

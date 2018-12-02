@@ -3,6 +3,7 @@ var router = express.Router();
 var flash = require('connect-flash');
 var ensureauthenticated = require('../../tools/tools').ensureAuthenticated;
 var board= require('../../model/board') ;
+var user= require('../../model/user') ;
 var column= require('../../model/colum') ;
 var item= require('../../model/item') ;
 
@@ -112,10 +113,13 @@ router.get('/',ensureauthenticated,function (req,res) {
 
         if(!boards)
             boards=[] ;
-        //console.log(boards);
-        console.log(boards)
-        res.render(baseDIR+'boards', {title: 'boards', layout: 'layout',boards:boards});
+        user.getAllUsers(function (err ,allusers) {
 
+
+            //console.log(boards);
+            console.log(boards);
+            res.render(baseDIR + 'boards', {title: 'boards', layout: 'layout', boards: boards,users:allusers});
+        });
     });
 });
 router.get('/delete/:name',ensureauthenticated,function (req,res,next){
@@ -126,42 +130,14 @@ router.get('/delete/:name',ensureauthenticated,function (req,res,next){
     res.location('/boards/');
     res.redirect('/boards/');
 });
-router.get('/display/:name',function (req,res) {
-    var columns =[];
-    var items=[] ;
-    board.getallcolumns(req.params.name,function (err,thisboard){
-        if (err) throw err ;
-        for (var i=0;i<thisboard.columns.length;i++){
-            console.log(":kdbn:vkz vlkzrflkq    "+thisboard.columns[i]);
-            column.getColumnById(thisboard.columns[i],function (err ,thiscolumn) {
-                console.log("column "+thiscolumn);
-            })
 
-        }
-
-            /*for(var i=0;i<thisboard.columns.length;i++){
-                column.getallcolumsofboard(thisboard,i,function (err,column) {
-                      columns.push(column);
-                      console.log("here is the columns " +column);
-                      /*for(var j=0;i<columns[i].items.length;j++){
-                            item.getItelmbyId(thisboard.column[i].items[j].id,function (err, item) {
-                                items.push(item);
-                            }) ;
-                            
-                      }
-                });
-            }*/
-        res.render(baseDIR+'board',{title:'board/:name',layout:'layout',board:thisboard,columns:thisboard.columns,items:items});
-    });
-
-
-});
 router.post('/add',ensureauthenticated, function (req, res, next) {
     var boardname = req.body.name;
     var descprition = req.body.description;
+    var users = req.body.users;
     //var defaultadmin_id =req.body.description ;
 
-
+  console.log("all users"+users);
 
     req.checkBody('name', 'Board name  is required!').notEmpty();
     req.checkBody('description', 'Description is required!').notEmpty();
@@ -190,7 +166,6 @@ router.post('/add',ensureauthenticated, function (req, res, next) {
             console.log(board);
 
 
-        //req.flash('sucess', 'you are now fucking registered');
         res.location('/boards/display/'+boardname);
         res.redirect('/boards/display/'+boardname) ;
         });

@@ -1,24 +1,31 @@
 extends ../layout
 
 block content
-    div.w-50
-        if boards
-            each  board, i  in boards
-                .card.pl-0.pr-0.m-5
-                    .card-body.container-fluid.row
-                        h5.card-title.col-sm #{board.board_name}
-                        div.col-sm
-                            h6 users
-                            ul.list-group.w-50
-                                if users
-                                    each user,i in users
-                                            li.list-group-item  #{user.username}
-                                                span.badge.badge-primary.badge-pill 3
+    div.d-inline-flex.flex-row.w-100
+        div.w-50
+            if boards
+                each  board, i  in boards
+                    .card.pl-0.pr-0.m-5
+                        .card-body.container-fluid.row
+                            h5.card-title.col-sm #{board.board_name}
+                            div.col-sm
+                                h6 users
+                                ul.list-group.w-50
+                                    if users
+                                        each user,i in users
+                                                li.list-group-item  #{user.username}
+                                                    span.badge.badge-primary.badge-pill 3
 
 
-                        a.btn.btn-primary(href='#').m-1.p-0 Delete
-                        a.btn.btn-primary(href='#') Edit
+                            a.btn.btn-primary(href='/settings/delete/'+board.board_name) Delete
+                            a.btn.btn-primary(href='#  ') Edit
 
+        div.w-50.border-dark
+            each userh , i in users
+                ul.list-group.w-50
+                    li.list-group-item  #{userh.username}
+                        span
+                            ion-icon(name='trash').alert-danger
 
 
 

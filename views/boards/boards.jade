@@ -15,7 +15,7 @@ block content
                         h6.card-subtitle.mb-2.text-muted Card subtitle
                         p.card-text
                             | #{board.description}
-                        a(href='/boards/display/'+board.board_name) display board
+                        a(href='/board/display/'+board.board_name) display board
                         a.card-link(href='/boards/delete/'+board.board_name) delete board
 
         button.btn.btn-primary(type='button', data-toggle='modal', data-target='#addboardModal').m-3.ml-5
@@ -35,12 +35,12 @@ block content
     #addboardModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
 
         .modal-dialog(role='document')
-            .modal-content
+            .modal-content.w-100
                 .modal-header
                     h5#exampleModalLabel.modal-title Add board
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                         span(aria-hidden='true') ×
-                .modal-body
+                .modal-body.w-100
                     form.col-md-6.offset-md-3(method='post', action='/boards/add').m-1.mt-0
                         .form-group.m-2
                             label board name
@@ -48,10 +48,18 @@ block content
                         .form-group.m-2
                             label(for='comment') description
                             textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
+                        .form-group.m-2
+                            .row
+                                h3.text-center Basic Example
+                            .well(style='max-height: 300px;overflow: auto;')
+                                ul.list-group.checked-list-box
+                                    if users
+                                        each user ,i in users
+                                            li.list-group-item( name='users' value=user.username) #{user.username}
 
 
 
-                          button.btn.btn-primary(type='submit', value='Submit') Save changes
+                        button.btn.btn-primary(type='submit', value='Submit') Save changes
 
 
                 .modal-footer

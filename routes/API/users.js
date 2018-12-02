@@ -15,7 +15,7 @@ router.get('/',function(req,res,next){
    res.send('respond with a resource');
 });
 
-router.get('/register',ensureauthenticated.ensureAuthenticated, function (req, res, next) {
+router.get('/register', function (req, res, next) {
     res.render('user/register', {title: 'register', layout: 'layout'});
 });
 router.get('/',ensureauthenticated.ensureAuthenticated, function (req, res, next) {
@@ -88,12 +88,18 @@ router.get('/',ensureauthenticated.ensureAuthenticated, function (req, res, next
 
 
 });*/
-router.post('/register', function (req, res, next) {
+router.post('/register',ensureauthenticated.ensureAuthenticated, function (req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
     var password2 = req.body.password2;
     var email = req.body.email;
-    var isadmin=req.body.isadmin ;
+    var isadmin= req.body.admin ;
+    console.log("admin "+isadmin);
+    var thisisadmin =false ;
+    if(isadmin=="on"){
+        thisisadmin=true ;
+    }
+
     req.checkBody('username', 'Username is required!').notEmpty();
     req.checkBody('password', 'Password is required!').notEmpty();
     req.checkBody('email', 'Email is required').notEmpty();
@@ -112,7 +118,8 @@ router.post('/register', function (req, res, next) {
         var newuser = new baseDIR({
             username: username,
             password: password,
-            email: email
+            email: email,
+            admin:thisisadmin
         });
 
         baseDIR.createUser(newuser, function (err, user) {

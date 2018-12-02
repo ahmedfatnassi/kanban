@@ -4,6 +4,7 @@ var flash = require('connect-flash');
 var ensureauthenticated = require('../../tools/tools').ensureAuthenticated;
 var board= require('../../model/board') ;
 var column= require('../../model/colum') ;
+var user= require('../../model/user') ;
 var item= require('../../model/item') ;
 
 
@@ -16,9 +17,9 @@ router.use(flash());
  module.exports=router ;
 
 
- router.post('/addcolumn',ensureauthenticated,function (req,res) {
+ router.post('/addcolumn/:boardname',ensureauthenticated,function (req,res) {
 
-    var name_column = req.body.name
+    var name_column = req.body.name ;
 
 
      req.checkBody('name','name is require').notEmpty() ;
@@ -41,23 +42,42 @@ router.use(flash());
           column_name: name_column
       }) ;
 
+      column.createColumn(newcolumn,function (err ,column) {
+          if(err)throw  err ;
+            console.log(column) ;
+      }) ;
 
-
-         board.boardAddColumn("fatnassi",newcolumn,function (err,columnpushed) {
-            // if(err)throw  err ;
+        var boardname=req.params.boardname ;
+        console.log(boardname);
+         board.boardAddColumn(boardname,newcolumn,function (err,columnpushed) {
+            if(err)throw  err ;
              console.log(columnpushed) ;
 
 
          }) ;
-         res.location('/boards') ;
-         res.redirect('/boards') ;
+         res.location('/board/display/'+boardname) ;
+         res.redirect('/board/display/'+boardname) ;
 
      }
 
 
  });
 
+router.get('/display/:name',ensureauthenticated,function (req,res) {
+    var columns =[];
+    var items=[] ;
+    board.getallcolumns(req.params.name,function (err,board){
+        if (err) throw err ;
+    user.getAllUsers(function (err,users) {
+        if(users) users=[]
 
+        console.log(board.columns) ;
+        res.render(baseDIR+'board',{title:'board/:name',layout:'layout',board:board,columns:board.columns,users:users});
+    })    ;
+    });
+
+
+});
  router.get('delete/:columnname',ensureauthenticated,function (req,res) {
      board.deletecolumn("fatnassi",req.params.columnname,function (err) {
          if (err) throw err;

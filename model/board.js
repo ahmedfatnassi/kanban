@@ -34,23 +34,31 @@ var boardschema = mongoose.Schema({
         type: String
 }
 });
-var board =module.exports=mongoose.model('board',boardschema) ;///thsi make his schemas availeble out of this file
+var board =module.exports=mongoose.model('board',boardschema) ;///this make his schemas availeble out of this file
 
 module.exports.createBoard=function (newBoard,callback) {
         newBoard.save(callback);
 };
-module.exports.boardAddColumn=function(boardname,column,callback){
+module.exports.boardAddColumn=function(boardname,column,callback) {
 
-        board.findOne({board_name:boardname})
-        .then((newboard)=>{newboard.columns.push(column)
-            console.log("board "+newboard);
-            newboard.save(callback);
-        }) ;
+    board.findOne({board_name: boardname})
+        .then(function (board, err) {
+
+        board.columns.push(column);
+            console.log("after board " + board);
+
+            board.save(callback);
+
+    });
+
+
+
+
 
 };
-module.exports.deletecolumn =function(boardname,columnname,callback){
-    board.findOne({board_name:boardname})
-        .then((newboard)=>{newboard.columns.remove({column_name:columnname})
+module.exports.deletecolumn =function(boardname,column_id,callback){
+    board.findOne({board_name:boardname},callback)
+        .then((newboard)=>{newboard.columns.remove({_id:column_id});
             newboard.save(callback);
         }) ;
 
@@ -59,12 +67,10 @@ module.exports.deletecolumn =function(boardname,columnname,callback){
 
 module.exports.getallcolumns=function(boardname,callback){
     board.findOne({board_name:boardname})
-        .populate({path :'columns',model :'column'})
-        .then((newboard)=>{
-            console.log("lksgnmlsnmmosjg    i'am here \n "+newboard.columns[0]);
-            newboard.save(callback);
+        .populate({path :'columns'})
+        .exec(callback)
 
-        }) ;
+
 
 };
 

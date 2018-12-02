@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/nodeauth', function (err) {
 var db = mongoose .connection ;
 
 var Userschema = mongoose.Schema({
+
     username:{
         type:String
         , Index :true
@@ -47,6 +48,12 @@ module.exports.createUser=function (newUser,callback) {
         newUser.save(callback);
     });
 };
+module.exports.deleteUserById = function(usersId,callback){
+  User.findOneAndDelete({id:usersId},function(err ,user){
+      console.log("user was delete with success "+user) ;
+
+  })
+};
 module.exports.comparePassword = function (condPassword, hash, callback) {
     bcrypt.compare(condPassword, hash, function (err, isMatch) {
         if (err) callback(err);
@@ -55,7 +62,18 @@ module.exports.comparePassword = function (condPassword, hash, callback) {
 };
 
 module.exports.getAllUsers = function (callback) {
-    User.find(callback);
+    User.find(callback)
+    .then((users)=>{
+        if(users.length==0){
+            User.createUser({
+                username:"admin",
+                password:"admin",
+                admin :true
+            },function(err,user){
+                user.save(callback) ;
+            })
+        }
+    });
 };
 
 

@@ -1,41 +1,79 @@
 extends ../layout
 
 block content
+            h1 board name  #{board.board_name}
+            if columns
+                each  column, i  in columns
+                    .card.w-25.d-inline-block.h-100
+                        .card-header
+                            | #{column.column_name}
+                        .card-body
+                            if items
+                                each  item, i  in items
+                                    a(href="")
+                                        .card.text-white.bg-primary.mb-3(style='max-width: 18rem;')
+                                            .card-header
+                                            .card-body
+                                                h5.card-title #{item.title}
+                                                p.card-text
+                                                    | #{item.description}
 
-    if board.columns
-        each  column, i  in columns
-            .card.w-25.d-inline-block.h-100
-                .card-header
-                    | #{column.column_name}
-                .card-body
-                    h5.card-title Special title treatment
-                    p.card-text With supporting text below as a natural lead-in to additional content.
-                    a.btn.btn-primary(href='/board/delete/'+ column) Go somewhere
-
-
-        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
-
-
-
-        #addcolumnModal.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria-hidden= 'true')
-
-            .modal-dialog(role='document')
-                .modal-content
-                    .modal-header
-                        h5#exampleModalLabel.modal-title Add column
-                        button.close(type='button', data-dismiss='modal', aria-label='Close')
-                            span(aria-hidden='true') ×
-                    .modal-body
-                        form.col-md-6.offset-md-3(method='post', action='/board/addcolumn').m-1.mt-0
-                            .form-group.m-2
-                                label board name
-                                input.form-control(name='name', type='text', placeholder='Enter column name')
+                            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#additem') add item
 
 
 
+            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
 
-                            button.btn.btn-primary(type='submit', value='Submit') Save changes
 
 
-                    .modal-footer
-                        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            #addcolumnModal.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria-hidden= 'true')
+
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#exampleModalLabel.modal-title Add column
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') ×
+                        .modal-body
+                            form.col-md-6.offset-md-3(method='post', action='/board/addcolumn/'+board.board_name).m-1.mt-0
+                                .form-group.m-2
+                                    label board name
+                                    input.form-control(name='name', type='text', placeholder='Enter column name')
+
+
+
+
+                                button.btn.btn-primary(type='submit', value='Submit') Save changes
+
+
+                        .modal-footer
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
+
+
+            #additem.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#exampleModalLabel.modal-title add item
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') ×
+                        .modal-body
+                            form.col-md-6.offset-md-3(method='post', action='/boards/add').m-1.mt-0
+                                .form-group.m-2
+                                    label title
+                                    input.form-control(name='name', type='text', placeholder='Enter title ')
+                                .form-group.m-2
+                                    label(for='comment') description
+                                    textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
+                                .form-group.m-2
+                                    .row
+                                        h3.text-center Basic Example
+                                    .well(style='max-height: 300px;overflow: auto;')
+                                        ul.list-group.checked-list-box
+                                            if users
+                                                each user ,i in users
+                                                    li.list-group-item( name='users' value=user.username) #{user.username}
+                        .modal-footer
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                            button.btn.btn-primary(type='button') Save changes
