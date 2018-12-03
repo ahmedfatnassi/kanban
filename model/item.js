@@ -27,7 +27,7 @@ var itemschema  = mongoose.Schema({
 
 
     comments :[{
-        type:mongoose.Schema.Types.ObjectId ,
+        type:schema.Types.ObjectId ,
         ref: 'comment'
     }],
     creation_date :{

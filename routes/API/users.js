@@ -96,7 +96,7 @@ router.post('/register',ensureauthenticated.ensureAuthenticated, function (req, 
     var isadmin= req.body.admin ;
     console.log("admin "+isadmin);
     var thisisadmin =false ;
-    if(isadmin=="on"){
+    if(isadmin=="on"){  // when box was checked this will  return on then i create this var  pars the value
         thisisadmin=true ;
     }
 

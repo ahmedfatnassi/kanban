@@ -62,18 +62,8 @@ module.exports.comparePassword = function (condPassword, hash, callback) {
 };
 
 module.exports.getAllUsers = function (callback) {
-    User.find(callback)
-    .then((users)=>{
-        if(users.length==0){
-            User.createUser({
-                username:"admin",
-                password:"admin",
-                admin :true
-            },function(err,user){
-                user.save(callback) ;
-            })
-        }
-    });
+    User.find(callback);
+
 };
 
 

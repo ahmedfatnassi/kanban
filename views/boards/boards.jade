@@ -35,7 +35,7 @@ block content
     #addboardModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
 
         .modal-dialog(role='document')
-            .modal-content.w-100
+            .modal-content
                 .modal-header
                     h5#exampleModalLabel.modal-title Add board
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
@@ -55,7 +55,9 @@ block content
                                 ul.list-group.checked-list-box
                                     if users
                                         each user ,i in users
-                                            li.list-group-item( name='users' value=user.username) #{user.username}
+                                            .form-group.m-2
+                                                label(for='comment') #{user.username}
+                                                input#gridCheck.form-check-input(type='checkbox' name='users' value=user.username)
 
 
 

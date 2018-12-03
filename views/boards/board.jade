@@ -2,11 +2,13 @@ extends ../layout
 
 block content
             h1 board name  #{board.board_name}
-            if columns
+            if columns!=null
                 each  column, i  in columns
                     .card.w-25.d-inline-block.h-100
                         .card-header
                             | #{column.column_name}
+                            a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
+                                img.img-fluid(src="images/trash.png")
                         .card-body
                             if items
                                 each  item, i  in items
@@ -17,6 +19,7 @@ block content
                                                 h5.card-title #{item.title}
                                                 p.card-text
                                                     | #{item.description}
+
 
                             button.btn.btn-primary(type='button', data-toggle='modal', data-target='#additem') add item
 
@@ -59,7 +62,7 @@ block content
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
                         .modal-body
-                            form.col-md-6.offset-md-3(method='post', action='/boards/add').m-1.mt-0
+                            form.col-md-6.offset-md-3(method='post', action='/additem/').m-1.mt-0
                                 .form-group.m-2
                                     label title
                                     input.form-control(name='name', type='text', placeholder='Enter title ')
@@ -73,7 +76,11 @@ block content
                                         ul.list-group.checked-list-box
                                             if users
                                                 each user ,i in users
-                                                    li.list-group-item( name='users' value=user.username) #{user.username}
+                                                    .funkyradio
+                                                        .funkyradio-default
+                                                            input#radio1(name='user', type='radio')
+                                                            label(for='radio1') #{user.username}
+                                button.btn.btn-primary(type='button',value='Submit') Save changes
+
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-                            button.btn.btn-primary(type='button') Save changes

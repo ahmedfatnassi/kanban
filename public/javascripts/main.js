@@ -95,7 +95,7 @@ $(function () {
         }
         init();
     });
-
+//checkbox
     $('#get-checked-data').on('click', function(event) {
         event.preventDefault();
         var checkedItems = {}, counter = 0;
@@ -103,6 +103,15 @@ $(function () {
             checkedItems[counter] = $(li).text();
             counter++;
         });
+        //console.log("checkedItems"+checkedItems);
         $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
+        $.ajax({ /// this is magic ajax can collect information without loading page
+            url: "/boards/add",
+            type: "POST",
+            dataType: "json",
+            data: {
+                users: $('#users').val(),
+                counter:counter
+            }});
     });
 });

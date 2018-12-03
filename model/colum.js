@@ -29,7 +29,14 @@ module.exports.createColumn=function (newcolumn,callback) {
 
 };
 module.exports.ColumnAddItem=function(columntoupdate_id,item,callback){
-    column.update({_id:columntoupdate_id},{$push:{items:item}},callback) ;
+    column.findone({_id:columntoupdate_id})
+        .then(function (column, err) {
+            column.columns.push(item);
+            console.log("after board " +column);
+
+            board.save(callback);
+
+        });
 
 };
 module.exports.getColumnById= function (_id,callback) {

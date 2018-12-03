@@ -17,7 +17,7 @@ var boardschema = mongoose.Schema({
         type :String
 
     },
-    users_ids:[{type:Number}] ,
+    users:[{type:String}] ,
     defaultadmin:{
         type:schema.Types.ObjectId ,
         ref :'user'
@@ -51,14 +51,11 @@ module.exports.boardAddColumn=function(boardname,column,callback) {
 
     });
 
-
-
-
-
 };
+
 module.exports.deletecolumn =function(boardname,column_id,callback){
-    board.findOne({board_name:boardname},callback)
-        .then((newboard)=>{newboard.columns.remove({_id:column_id});
+    board.findOne({board_name:boardname})
+        .then((newboard)=>{newboard.columns.pull({_id:column_id});
             newboard.save(callback);
         }) ;
 
