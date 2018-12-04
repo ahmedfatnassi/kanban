@@ -55,8 +55,8 @@ module.exports.boardAddColumn=function(boardname,column,callback) {
 
 module.exports.deletecolumn =function(boardname,column_id,callback){
     board.findOne({board_name:boardname})
-        .then((newboard)=>{newboard.columns.pull({_id:column_id});
-            newboard.save(callback);
+        .then((newboard)=>{newboard.columns.pull({_id:column_id}) ;
+        newboard.save(callback);
         }) ;
 
 

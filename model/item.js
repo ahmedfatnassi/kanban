@@ -12,14 +12,13 @@ var itemschema  = mongoose.Schema({
     },
     description :{type :String} ,
     duedate:{type:Date} ,
-    assigneduser:Number,
+    assigneduser:String,
     estimatehours:{type :Number}
     ,
     attachement:{type :String} ,
 
 
-    position: Number ,
-    column_id :Number ,
+    position: String ,
     begin_date:Date ,
 
     color:String ,
@@ -39,12 +38,15 @@ var item =module.exports=mongoose.model('item',itemschema) ;///
 module.exports.getItelmbyId=function (item_id,callback) {
     item.findById(item_id,callback) ;
 };
-module.exports.createItem=function (newitem, callback) {
-    item.save(newitem,callback);
+module.exports.getAllitems=function(callback){
+  item.find(callback);
 };
-/*item.exports.deleteItemById= function (id,callback) {
-    item.findOneAndDelete(id,callback) ;
-};*//*
+module.exports.createItem=function (newitem, callback) {
+    newitem.save(callback);
+};
+module.exports.deleteItemById= function (callback) {
+    item.deleteMany({},callback);
+};/*
 module.BoardAddColumn=function(boardtoupdate,column,callback){
     board.update({_id:boardtoupdate._id},{$push:{columns:column}},callback) ;
     board.save(done);
