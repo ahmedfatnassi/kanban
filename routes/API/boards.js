@@ -47,8 +47,9 @@ router.post('/add',ensureauthenticated, function (req, res, next) {
     req.checkBody('name', 'Board name  is required!').notEmpty();
     req.checkBody('description', 'Description is required!').notEmpty();
     req.checkBody('users', 'Description is required!').notEmpty();
-    var alluser = users.split(",");
-    console.log("users kqjhvojzrnbomjzr "+alluser) ;
+
+
+
     boardname = boardname.replace(/\s/g, '_');
 
 
@@ -66,7 +67,7 @@ router.post('/add',ensureauthenticated, function (req, res, next) {
         var newboard = new board({
             board_name:boardname,
             description:descprition,
-            users:alluser,
+            users:users,
             creationDate: date
 
         });

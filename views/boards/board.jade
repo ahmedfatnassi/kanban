@@ -71,13 +71,12 @@ block content
                                     label(for='comment') description
                                     textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
                                 .form-group.m-2
-                                        h3.text-center  users
-                                    .well(style='max-height: 300px;overflow: auto;')
+                                    label(for='inputState') State
+                                        select#inputState.form-control(name ="user")
                                             if users
                                                 each user ,i in users
-                                                        input#radio1(name='user', type='radio' ,value =user.username)
-                                                        label(for='radio1') #{user.username}
-                                                        br
+                                                        option(value =user.username) #{user.username}
+
                                 .form-group.m-2
                                     each columnitem ,j  in columns
                                         input#radio1(name='column', type='radio',value=columnitem._id)
