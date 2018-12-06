@@ -15,9 +15,8 @@ var columnschema  = mongoose.Schema({
 
 
     items :[{
-        type:mongoose.Schema.Types.ObjectId ,
-        ref: 'item' ,
-        Index :true
+        type:schema.Types.ObjectId ,
+        ref: 'item'
     }],
 
 
@@ -32,7 +31,7 @@ module.exports.ColumnAddItem=function(columntoupdate_id,item,callback){
     column.findOne({_id:columntoupdate_id})
         .then(function (column, err) {
             column.items.push(item);
-            console.log("after board " +column);
+           // console.log("after board " +column);
 
             column.save(callback);
 
@@ -49,7 +48,11 @@ module.exports.getallcolumsofboard= function (board,i,callback) {
 module.exports.getAllColums = function (callback) {
     column.find(callback);
 };
-
+module.exports.getAllItemofBoard=function(columnid, callback) {
+    column.findOne({_id: columnid})
+        .populate({path: 'items'})
+        .exec(callback);
+} ;
 module.exports.updateColumns =function (id,ecolumn, callback) {
     if(ecolumn.id.name!=""){
 

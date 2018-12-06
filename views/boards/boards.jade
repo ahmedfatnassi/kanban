@@ -9,7 +9,7 @@ block content
                 if (i+1)%5===0 && i!==0
 
                 .card.m-2.d-inline-block.ui-state-default.draggable(style='width: 25rem;')
-                    .card-body
+                    .card-body.h-100
                         img.card-img(src="images/homeicon.jpg", alt='Card image cap')
                         h5.card-title  yeah
                         h6.card-subtitle.mb-2.text-muted Card subtitle
@@ -41,7 +41,7 @@ block content
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                         span(aria-hidden='true') ×
                 .modal-body.w-100
-                    form.col-md-6.offset-md-3(method='post', action='/boards/add').m-1.mt-0
+                    form.offset-md-3(method='post', action='/boards/add').m-1.mt-0
                         .form-group.m-2
                             label board name
                             input.form-control(name='name', type='text', placeholder='Enter board name')

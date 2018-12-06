@@ -115,3 +115,8 @@ $(function () {
             }});
     });
 });
+
+
+$( function() {
+    $( ".draggable" ).draggable();
+} );

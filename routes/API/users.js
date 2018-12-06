@@ -15,7 +15,7 @@ router.get('/',function(req,res,next){
    res.send('respond with a resource');
 });
 
-router.get('/register', function (req, res, next) {
+router.get('/register',ensureauthenticated.ensureAuthenticated, function (req, res, next) {
     res.render('user/register', {title: 'register', layout: 'layout'});
 });
 router.get('/',ensureauthenticated.ensureAuthenticated, function (req, res, next) {

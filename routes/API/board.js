@@ -23,16 +23,7 @@ router.use(flash());
 
 
      req.checkBody('name','name is require').notEmpty() ;
-    //board.getByBoardName(name_board,function (err,currentboard) {
-       // if(err) throw err ;
-       /* if(currentboard.columns) {currentboard.columns=[] ;
-        var max= -1;
-        for(var i=0;i<currentboard.columns.length;i++){
-             if(max<currentboard.columns[i].position) currentboard.columns[i].position=max;
-        }
-        position=max ;
-        }*/
-    //});
+
      var errors = req.validationErrors();
      console.log(errors);
      if (errors) {
@@ -67,14 +58,14 @@ router.post('/additem/:boardname',ensureauthenticated,function (req,res) {
     var title = req.body.title ;
     var description = req.body.description ;
     var user = req.body.user ;
-    var columnitem = req.body.column ;
+    var columnid = req.body.columnid ;
 // it remains hour estimate
-
+    console.log("columnitem  "+columnid) ;
 
     req.checkBody('title','title is require').notEmpty() ;
     req.checkBody('description','description is require').notEmpty() ;
     req.checkBody('user','user is require').notEmpty() ;
-    req.checkBody('column','columnitem is require').notEmpty() ;
+   //req.checkBody('columnid','column is require').notEmpty() ;
 
     var errors = req.validationErrors();
     console.log(errors);
@@ -86,15 +77,15 @@ router.post('/additem/:boardname',ensureauthenticated,function (req,res) {
             description :description ,
             assigneduser:user,
         }) ;
-       /* item.createItem(newitem,function(err,itemcreate ){
-            if(err)throw  err ;
-            console.log("item"+itemcreate);
-        });*/
-        column.ColumnAddItem(columnitem,newitem,function (err ,column) {
-            if(err)throw  err ;
-            console.log(column) ;
-        }) ;
+        item.createItem(newitem,function(err,itemcreate ) {
+            if (err) throw  err;
+            console.log("item" + itemcreate);
 
+            column.ColumnAddItem(columnid, itemcreate, function (err, column) {
+                if (err) throw  err;
+                console.log(column);
+            });
+        });
 
         res.location('/board/display/'+boardname) ;
         res.redirect('/board/display/'+boardname) ;
@@ -109,6 +100,7 @@ router.get('/display/:name',ensureauthenticated,function (req,res) {
     var items=[] ;
     board.getallcolumns(req.params.name,function (err,board){
         if (err) throw err ;
+        console.log(board) ;
 
     user.getAllUsers(function (err,users) {
         res.render(baseDIR+'board',{title:'board/:name',layout:'layout',board:board,columns:board.columns,users:users});

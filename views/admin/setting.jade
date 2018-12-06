@@ -13,19 +13,26 @@ block content
                                 ul.list-group.w-50
                                     if users
                                         each user,i in users
-                                                li.list-group-item  #{user.username}
-                                                    span.badge.badge-primary.badge-pill 3
+                                                li.list-group-item  #{board.users}
 
 
+                            div.col-sm
+                                h6 columns
+                                ul.list-group.w-50
+                                    if board.columns!=null
+                                        each column,i in board.columns
+                                            li.list-group-item  #{column.column_name}
+                                                span.badge.badge-primary.badge-pill
                             a.btn.btn-primary(href='/settings/delete/'+board.board_name) Delete
                             a.btn.btn-primary(href='#  ') Edit
 
         div.w-50.border-dark
-            each userh , i in users
-                ul.list-group.w-50
-                    li.list-group-item  #{userh.username}
-                        span
-                            ion-icon(name='trash').alert-danger
+            if users!=null
+                    each user , i in users
+                        ul.list-group.w-50
+                            li.list-group-item  #{user.username}
+                                span
+                                    ion-icon(name='trash').alert-danger
 
 
 

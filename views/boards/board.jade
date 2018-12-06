@@ -4,19 +4,19 @@ block content
             h1 board name  #{board.board_name}
             if columns!=null
                 each  column, i  in columns
-                    .w-25.d-inline-block.h-100s
+                    .w-25.d-inline-block.h-100s.ml-3
                         .card.h-100
                             .card-header
                                 | #{column.column_name}
                                 a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
-                                    img.img-fluid(src="images/trash.png")
+                                    img.img-fluid(src="/images/trash.png")
                             .card-body
-                                .h-100
+                                .h-100(ondrop='drop(event)',ondragover='allowdrop(event)')
                                     if column.items!=null
                                         each  item, i  in column.items
-                                                .card.text-white.bg-primary.mb-3.h-auto
+                                                .card.text-white.bg-primary.mb-3.h-auto(draggable='true', ondragstart='drag(event)')
                                                     .card-header
-                                                         h1.alert-primary #{item.title}
+                                                         h3 #{item.title}
                                                     .card-body
                                                         p.card-text
                                                             | #{item.description}
@@ -39,11 +39,10 @@ block content
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
                         .modal-body
-                            form.col-md-6.offset-md-3(method='post', action='/board/addcolumn/'+board.board_name).m-1.mt-0
+                            form.offset-md-3(method='post', action='/board/addcolumn/'+board.board_name).m-1.mt-0
                                 .form-group.m-2
                                     label board name
                                     input.form-control(name='name', type='text', placeholder='Enter column name')
-
 
 
 
@@ -63,7 +62,7 @@ block content
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
                         .modal-body
-                            form.col-md-6.offset-md-3(method='post', action='/board/additem/'+board.board_name).m-1.mt-0
+                            form.offset-md-3(method='post', action='/board/additem/'+board.board_name).m-1.mt-0
                                 .form-group.m-2
                                     label title
                                     input.form-control(name='title', type='text', placeholder='Enter title ')
@@ -79,7 +78,7 @@ block content
 
                                 .form-group.m-2
                                     each columnitem ,j  in columns
-                                        input#radio1(name='column', type='radio',value=columnitem._id)
+                                        input#radio1(name='columnid', type='radio',value=columnitem._id)
                                         label(for='radio1') #{columnitem.column_name}
                                         br
                                 button.btn.btn-primary(type='submit', value='Submit') Save changes

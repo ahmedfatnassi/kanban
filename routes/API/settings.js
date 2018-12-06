@@ -106,7 +106,7 @@ router.get('/',ensureauthenticated, function (req, res) {
 
 
 
-    res.render(baseDIR+'setting',{title:"setting",layout:'layout',boards:boardsDB,users:usersDB,columns:columns})
+    res.render(baseDIR+'setting',{title:"setting",layout:'layout',boards:boardsDB})
     });
     //});
 });

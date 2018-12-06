@@ -64,7 +64,8 @@ module.exports.deletecolumn =function(boardname,column_id,callback){
 
 module.exports.getallcolumns=function(boardname,callback){
     board.findOne({board_name:boardname})
-        .populate({path :'columns'})
+        .populate({path :'columns'
+        , populate :{path:'items'}})
         .exec(callback)
 
 
