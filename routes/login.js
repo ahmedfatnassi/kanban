@@ -26,10 +26,10 @@ router.get('/login', function (req, res, next) {
 });*/
 
 passport.serializeUser(function (user, done) {
-    return done(null, user.id);
+    return done(null, user.id); // serialisation just take just id end stored on the session
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function (id, done) {      //  retrieve the user form and store it on the session
     User.findById(id, function (err, user) {
         return done(err, user);
     });

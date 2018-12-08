@@ -11,9 +11,9 @@ block content
                             div.col-sm
                                 h6 users
                                 ul.list-group.w-50
-                                    if users
-                                        each user,i in users
-                                                li.list-group-item  #{board.users}
+                                    if board.users
+                                        each user,i in board.users
+                                            li.list-group-item  #{user}
 
 
                             div.col-sm
@@ -23,16 +23,37 @@ block content
                                         each column,i in board.columns
                                             li.list-group-item  #{column.column_name}
                                                 span.badge.badge-primary.badge-pill
-                            a.btn.btn-primary(href='/settings/delete/'+board.board_name) Delete
-                            a.btn.btn-primary(href='#  ') Edit
+                            div
+                                a.btn.btn-primary(href="/settings/delete/"+board.board_name) Delete 
+                                a.btn.btn-primary( onclick='showhide('+ board.board_name+ ')') Edit
+                    div(style="display:none",class =''+board.board_name)
+                        form.offset-md-3(method='post', action='/boards/add' ).m-1.mt-0
+                            .form-group.m-2
+                                label board name
+                                input.form-control(name='name', type='text', placeholder='Enter board name')
+                            .form-group.m-2
+                                label(for='comment') description
+                                textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
+                            .form-group.m-2
+                                .row
+
+                                    h3.text-center Basic Example
+                                .well(style='max-height: 300px;overflow: auto;')
+                                    ul.list-group.checked-list-box
+                                        if users
+                                            each user ,i in users
+                                                .form-group.m-2
+                                                    label(for='comment') #{user.username}
+                                                    input#gridCheck.form-check-input(type='checkbox' name='users' value=user.username)
 
         div.w-50.border-dark
             if users!=null
                     each user , i in users
                         ul.list-group.w-50
                             li.list-group-item  #{user.username}
-                                span
-                                    ion-icon(name='trash').alert-danger
+                                    img.img-fluid.float-right(src="/images/trash.png")
+                                    img.img-fluid.float-right.mr-3(width='35' ,src="/images/edit.png" height='35')
+
 
 
 

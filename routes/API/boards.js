@@ -40,8 +40,11 @@ router.post('/add',ensureauthenticated, function (req, res, next) {
     var boardname = req.body.name;
     var descprition = req.body.description;
     var users = req.body.users;
-
-
+    var image=req.body.image;
+    console.log("dsgsfgsfgfsg"+image);
+    if(image==null){
+        image="white";
+    }
 
 
     req.checkBody('name', 'Board name  is required!').notEmpty();
@@ -68,7 +71,8 @@ router.post('/add',ensureauthenticated, function (req, res, next) {
             board_name:boardname,
             description:descprition,
             users:users,
-            creationDate: date
+            creationDate: date,
+            image:image
 
         });
 

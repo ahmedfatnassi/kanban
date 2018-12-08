@@ -1,32 +1,33 @@
 extends ../layout
 
 block content
-            h1 board name  #{board.board_name}
-            if columns!=null
-                each  column, i  in columns
-                    .w-25.d-inline-block.h-100s.ml-3
-                        .card.h-100
-                            .card-header
-                                | #{column.column_name}
-                                a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
-                                    img.img-fluid(src="/images/trash.png")
-                            .card-body
-                                .h-100(ondrop='drop(event)',ondragover='allowdrop(event)')
-                                    if column.items!=null
-                                        each  item, i  in column.items
-                                                .card.text-white.bg-primary.mb-3.h-auto(draggable='true', ondragstart='drag(event)')
-                                                    .card-header
-                                                         h3 #{item.title}
-                                                    .card-body
-                                                        p.card-text
-                                                            | #{item.description}
+            .background.w-100.h-100(style='background-image: url(/images/backgrounds/'+board.image+'.jpg' )
+                h1 board name  #{board.board_name}#{board.image}
+                if columns!=null
+                    each  column, i  in columns
+                        .w-25.d-inline-block.h-100.ml-5
+                            .card.h-100
+                                .card-header
+                                    | #{column.column_name}
+                                    a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
+                                        img.img-fluid(src="/images/trash.png")
+                                .card-body
+                                    .h-100(ondrop='drop(event)',ondragover='allowdrop(event)')
+                                        if column.items!=null
+                                            each  item, i  in column.items
+                                                    .card.text-white.bg-primary.mb-3.h-auto(draggable='true', ondragstart='drag(event)')
+                                                        .card-header
+                                                             h3 #{item.title}
+                                                        .card-body
+                                                            p.card-text
+                                                                | #{item.description}
 
 
-                                button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val=column._id) add item
+                                    button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val=column._id) add item
 
 
 
-            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
+                 button.btn.btn-primary.m-3(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
 
 
 
@@ -81,7 +82,9 @@ block content
                                         input#radio1(name='columnid', type='radio',value=columnitem._id)
                                         label(for='radio1') #{columnitem.column_name}
                                         br
+
                                 button.btn.btn-primary(type='submit', value='Submit') Save changes
 
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+    script(src='/javascripts/boardscript.js', rel='script')

@@ -81,7 +81,10 @@ module.exports.getByBoardName= function (board_name,callback) {
 };
 
 module.exports.getAllBoards = function (callback) {
-    board.find(callback);
+    board.find({})
+        .populate({path :'columns'
+            , populate :{path:'items'}})
+        .exec(callback) ;
 };
 module.exports.updateBoard =function (id,board, callback) {
     if(board.name!=""){

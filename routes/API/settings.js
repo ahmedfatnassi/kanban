@@ -88,25 +88,24 @@ router.post('/edit/board/:id',ensureauthenticated,function (req, res, next) {
 router.get('/',ensureauthenticated, function (req, res) {
     var boards=[] ;
     var users=[] ;
-    var columns=[] ;
+    var holeboards=[] ;
     board.getAllBoards(function (err, boardsDB) {
         if (err) throw err;
-        if (!boardsDB) {
-            boardsDB=[];
+        if (boardsDB) {
             boards=boardsDB ;
         }
 
 
     user.getAllUsers(function (err, usersDB) {
         if (err) throw err;
-        if (!usersDB) {
-            usersDB=[];
+        if (usersDB) {
             users=usersDB ;
+           // console.log(usersDB);
         }
 
 
 
-    res.render(baseDIR+'setting',{title:"setting",layout:'layout',boards:boardsDB})
+    res.render(baseDIR+'setting',{title:"setting",layout:'layout',boards:boardsDB ,users:usersDB })
     });
     //});
 });
@@ -124,19 +123,11 @@ router.get('/delete/:userId',ensureauthenticated,function (req,res) {
     }) ;
 });
 router.get('/delete/:name',ensureauthenticated,function (req,res,next){
-    board.findOneAndDelete({board_name:req.params.name}, function (err,board) {                     //  to delete some testing board
-        if (err) throw err;
-
-        console.log("board "+req.params.name+" success delete "+board)  ;
-    });
-
-});
-router.get('/delete/:name',ensureauthenticated,function (req,res,next){
     board.deleteOne({board_name:req.params.name}, function (err) {                     //  to delete some testing board
         if (err) throw err;
         console.log("board "+req.params.name+" success delete ")  ;
     });
-    res.location('/boards/');
-    res.redirect('/boards/');
+    res.location('/settings/');
+    res.redirect('/settings/');
 });
 module.exports = router;
