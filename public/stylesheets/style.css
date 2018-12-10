@@ -79,5 +79,12 @@ ul.error li{
     outline: 2px solid #005cbf;
 }
 .background{
+    overflow: auto;
+    white-space: nowrap;
     background-size: cover;
+}
+
+.card .card-header {
+    border-radius:30px ;
+
 }

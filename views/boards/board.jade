@@ -1,18 +1,19 @@
 extends ../layout
+link(href='/stylesheets/board.css', rel='stylesheet')
 
 block content
             .background.w-100.h-100(style='background-image: url(/images/backgrounds/'+board.image+'.jpg' )
                 h1 board name  #{board.board_name}#{board.image}
                 if columns!=null
                     each  column, i  in columns
-                        .w-25.d-inline-block.h-100.ml-5
+                        .w-25.d-inline-block.h-auto.ml-5.columnborder
                             .card.h-100
-                                .card-header
+                                .card-header.rounded.columnborder
                                     | #{column.column_name}
                                     a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
                                         img.img-fluid(src="/images/trash.png")
-                                .card-body
-                                    .h-100(ondrop='drop(event)',ondragover='allowdrop(event)')
+                                .card-body(id='column' ,ondrop='drop(event)',ondragover='allowdrop(event)')
+
                                         if column.items!=null
                                             each  item, i  in column.items
                                                     .card.text-white.bg-primary.mb-3.h-auto(draggable='true', ondragstart='drag(event)')
@@ -22,8 +23,7 @@ block content
                                                             p.card-text
                                                                 | #{item.description}
 
-
-                                    button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val=column._id) add item
+                                            button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val=column._id) add item
 
 
 

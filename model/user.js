@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost/nodeauth', function (err) {
 });
 var db = mongoose .connection ;
 
+
 var Userschema = mongoose.Schema({
 
     username:{
@@ -35,7 +36,14 @@ var Userschema = mongoose.Schema({
 });
 
 var User =module.exports=mongoose.model('User',Userschema) ;///thsi make his schemas availeble out of this file
-
+User.findOne({username:"admin"},(err,user)=>{
+    if(err) throw err;
+    if(user!=null){
+        User.createUser({username:"admin",password:"admin",admin:true},(err,usercreated)=>{
+            usercreated.password=hash ;
+        });
+    }
+}) ;
 
 module.exports.getUserByUsername = function (username, callback) {
     var query = {username: username};
