@@ -46,6 +46,8 @@ router.use(flash());
 
 
          }) ;
+         req.flash('success', 'board column added successfully!');
+
          res.location('/board/display/'+boardname) ;
          res.redirect('/board/display/'+boardname) ;
 
@@ -86,6 +88,7 @@ router.post('/additem/:boardname',ensureauthenticated,function (req,res) {
                 console.log(column);
             });
         });
+        req.flash('success', 'item created successfully!');
 
         res.location('/board/display/'+boardname) ;
         res.redirect('/board/display/'+boardname) ;

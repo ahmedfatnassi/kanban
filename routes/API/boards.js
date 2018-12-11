@@ -80,10 +80,11 @@ router.post('/add',ensureauthenticated, function (req, res, next) {
             if (err) throw err;
             console.log(board);
 
-
-        res.location('/board/display/'+boardname);
+            req.flash('success', 'board created successfully!');
+            res.location('/board/display/'+boardname);
         res.redirect('/board/display/'+boardname) ;
         });
+
     }
 
 });
