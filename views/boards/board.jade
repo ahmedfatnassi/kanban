@@ -4,6 +4,8 @@ link(href='/stylesheets/board.css', rel='stylesheet')
 block content
             .background.w-100.h-100(style='background-image: url(/images/backgrounds/'+board.image+'.jpg' )
                 h1 board name  #{board.board_name}#{board.image}
+                button.btn.btn-primary.ml-5.mb-3(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
+                br
                 if columns!=null
                     each  column, i  in columns
                         .w-25.d-inline-block.h-auto.ml-5.columnborder
@@ -12,22 +14,22 @@ block content
                                     | #{column.column_name}
                                     a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
                                         img.img-fluid(src="/images/trash.png")
-                                .card-body(id='column' ,ondrop='drop(event)',ondragover='allowdrop(event)')
+                                .card-body(id='column' ,class="droptarget" ondrop="drop(event)" ondragenter="dragEnter(event)"
+                                ondragleave = "dragLeave(event)" ondragover="allowDrop(event)")
 
                                         if column.items!=null
                                             each  item, i  in column.items
-                                                    .card.text-white.bg-primary.mb-3.h-auto(draggable='true', ondragstart='drag(event)')
+                                                    .card.mb-3.h-auto(ondragstart="dragStart(event)" draggable="true" id="dragtarget",style='background-color:'+item.color)
                                                         .card-header
                                                              h3 #{item.title}
                                                         .card-body
                                                             p.card-text
                                                                 | #{item.description}
 
-                                            button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val=column._id) add item
+                                    button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val1=column._id) add item
 
 
 
-                 button.btn.btn-primary.m-3(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
 
 
 
@@ -59,7 +61,9 @@ block content
                 .modal-dialog(role='document')
                     .modal-content
                         .modal-header
-                            h5#exampleModalLabel.modal-title add item
+                            h5#exampleModalLabel.modal-title add item to
+
+
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
                         .modal-body
@@ -67,6 +71,7 @@ block content
                                 .form-group.m-2
                                     label title
                                     input.form-control(name='title', type='text', placeholder='Enter title ')
+
                                 .form-group.m-2
                                     label(for='comment') description
                                     textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
@@ -76,12 +81,11 @@ block content
                                             if users
                                                 each user ,i in users
                                                         option(value =user.username) #{user.username}
-
                                 .form-group.m-2
-                                    each columnitem ,j  in columns
-                                        input#radio1(name='columnid', type='radio',value=columnitem._id)
-                                        label(for='radio1') #{columnitem.column_name}
-                                        br
+                                    label(for='comment') Choose color
+                                    input#color(name='color', type='color', value='#FFFF00')
+
+                                input#modal-val1(type='hidden',name='columnid')
 
                                 button.btn.btn-primary(type='submit', value='Submit') Save changes
 

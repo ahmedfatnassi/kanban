@@ -110,17 +110,10 @@ router.get('/',ensureauthenticated, function (req, res) {
     //});
 });
 });
-router.get('/delete/:userId',ensureauthenticated,function (req,res) {
-    user.getAllUsers(function (err ,users) {
-        if(users.length!=0) {
-            user.getUserById(req.params.userId, function (err) {
-
-            });
-        }else{
-            console.log('can\'t delete last user!');
-            return done(null, false, {message: 'can\'t delete last user!'});
-        }
-    }) ;
+router.get('/delete/user/:userId',ensureauthenticated,function (req,res) {
+    user.findOneAndRemove({id:req.params.userId}).exec();
+    res.location('/settings/');
+    res.redirect('/settings/');
 });
 router.get('/delete/:name',ensureauthenticated,function (req,res,next){
     board.deleteOne({board_name:req.params.name}, function (err) {                     //  to delete some testing board

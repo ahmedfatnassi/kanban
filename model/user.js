@@ -36,14 +36,7 @@ var Userschema = mongoose.Schema({
 });
 
 var User =module.exports=mongoose.model('User',Userschema) ;///thsi make his schemas availeble out of this file
-User.findOne({username:"admin"},(err,user)=>{
-    if(err) throw err;
-    if(user!=null){
-        User.createUser({username:"admin",password:"admin",admin:true},(err,usercreated)=>{
-            usercreated.password=hash ;
-        });
-    }
-}) ;
+
 
 module.exports.getUserByUsername = function (username, callback) {
     var query = {username: username};
@@ -93,4 +86,8 @@ module.exports.updateUserPassword = function (id, newUser, callback) {
         callback(null);
     }
 };
+module.exports.deleteUser = function(id,callback){
+    User.findOneAndDelete({id:id}).exec();
+
+} ;
 

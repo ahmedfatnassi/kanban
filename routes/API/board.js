@@ -61,14 +61,21 @@ router.post('/additem/:boardname',ensureauthenticated,function (req,res) {
     var description = req.body.description ;
     var user = req.body.user ;
     var columnid = req.body.columnid ;
-// it remains hour estimate
-    console.log("columnitem  "+columnid) ;
+    var color =req.body.color ;
+    // somehow i get ""idcolumn"" so i decide to just  delete quotes
+    columnid=columnid.replace('"','');
+    columnid=columnid.replace('"','');
+    columnid=columnid.replace('"','');
+    columnid=columnid.replace('"','');
 
+    columnid=columnid.toString();
     req.checkBody('title','title is require').notEmpty() ;
     req.checkBody('description','description is require').notEmpty() ;
     req.checkBody('user','user is require').notEmpty() ;
    //req.checkBody('columnid','column is require').notEmpty() ;
-
+    if(color==null){
+        color =	"#ffffff";
+    }
     var errors = req.validationErrors();
     console.log(errors);
     if (errors) {
@@ -78,6 +85,7 @@ router.post('/additem/:boardname',ensureauthenticated,function (req,res) {
             title:title,
             description :description ,
             assigneduser:user,
+            color:color
         }) ;
         item.createItem(newitem,function(err,itemcreate ) {
             if (err) throw  err;
@@ -103,7 +111,7 @@ router.get('/display/:name',ensureauthenticated,function (req,res) {
     var items=[] ;
     board.getallcolumns(req.params.name,function (err,board){
         if (err) throw err ;
-        console.log(board) ;
+        //console.log(board) ;
 
     user.getAllUsers(function (err,users) {
         res.render(baseDIR+'board',{title:'board/:name',layout:'layout',board:board,columns:board.columns,users:users});
@@ -115,7 +123,7 @@ router.get('/display/:name',ensureauthenticated,function (req,res) {
      console.log(board_name) ;
      board.deletecolumn(board_name,req.params.columnid,function (err,board) {
          if (err) throw err;
-         console.log("after delet column "+board) ;
+         console.log("after delete column "+board) ;
      });
 
      item.getAllitems(function (err,items) {

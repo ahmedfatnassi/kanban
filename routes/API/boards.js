@@ -14,6 +14,7 @@ var current_hour = date.getHours();
 
 router.use(flash());
 router.get('/',ensureauthenticated,function (req,res) {
+    console.log(req.session._id);
     board.getAllBoards(function (err,boards) {
         if (err) throw err;
 
@@ -27,6 +28,7 @@ router.get('/',ensureauthenticated,function (req,res) {
         });
     });
 });
+
 router.get('/delete/:name',ensureauthenticated,function (req,res,next){
     board.deleteOne({board_name:req.params.name}, function (err) {                     //  to delete some testing board
         if (err) throw err;

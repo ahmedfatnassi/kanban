@@ -35,10 +35,11 @@ var boardschema = mongoose.Schema({
 }
 });
 var board =module.exports=mongoose.model('board',boardschema) ;///this make his schemas availeble out of this file
-
+// create Board
 module.exports.createBoard=function (newBoard,callback) {
         newBoard.save(callback);
 };
+// add column to the board
 module.exports.boardAddColumn=function(boardname,column,callback) {
 
     board.findOne({board_name: boardname})
@@ -52,7 +53,7 @@ module.exports.boardAddColumn=function(boardname,column,callback) {
     });
 
 };
-
+ //delete column which belong to board has boardname
 module.exports.deletecolumn =function(boardname,column_id,callback){
     board.findOne({board_name:boardname})
         .then((newboard)=>{newboard.columns.pull({_id:column_id}) ;
@@ -61,7 +62,7 @@ module.exports.deletecolumn =function(boardname,column_id,callback){
 
 
 } ;
-
+//
 module.exports.getallcolumns=function(boardname,callback){
     board.findOne({board_name:boardname})
         .populate({path :'columns'
@@ -86,6 +87,15 @@ module.exports.getAllBoards = function (callback) {
             , populate :{path:'items'}})
         .exec(callback) ;
 };
+// get all boards that i can access
+module.exports.getMyBoards= function(username,callback){
+  board.find({users:username})
+      .populate({path :'columns'
+          , populate :{path:'items'}})
+      .exec(callback) ;
+};
+
+
 module.exports.updateBoard =function (id,board, callback) {
     if(board.name!=""){
 
