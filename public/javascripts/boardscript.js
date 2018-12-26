@@ -26,7 +26,7 @@ function drop(event) {
     event.target.appendChild(document.getElementById(data));
 }
 // data-* attributes to scan when populating modal values
-var ATTRIBUTES = ['val1', 'val2', 'myvar', 'cc'];
+var ATTRIBUTES = ['val1', 'itemtitle', 'itemdescription', 'itemuser','itemcolor'];
 
 $('[data-toggle="modal"]').on('click', function (e) {
     // convert target (e.g. the button) to jquery object
@@ -45,6 +45,7 @@ $('[data-toggle="modal"]').on('click', function (e) {
         // booleans. That way is dataValue is undefined, the left part of the following
         // Boolean expression evaluate to false and the empty string will be returned
         $modalAttribute.text(dataValue || '');
+        console.log(dataValue);
         $modalAttribute.val(dataValue);
     });
 });

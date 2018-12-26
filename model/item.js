@@ -18,7 +18,7 @@ var itemschema  = mongoose.Schema({
     attachement:{type :String} ,
 
 
-    position: String ,
+    position: Number ,
     begin_date:Date ,
 
     color:String ,

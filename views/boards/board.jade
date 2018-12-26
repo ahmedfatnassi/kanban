@@ -19,6 +19,7 @@ block content
 
                                         if column.items!=null
                                             each  item, i  in column.items
+                                                a(data-toggle='modal', data-target='#openitem',data-itemtitle=item.title,data-itemdescription=item.description,data-itemuser=item.assigneduser,data-itemcolor=item.color)
                                                     .card.mb-3.h-auto(ondragstart="dragStart(event)" draggable="true" id="dragtarget",style='background-color:'+item.color)
                                                         .card-header
                                                              h3 #{item.title}
@@ -88,6 +89,28 @@ block content
                                 input#modal-val1(type='hidden',name='columnid')
 
                                 button.btn.btn-primary(type='submit', value='Submit') Save changes
+
+                        .modal-footer
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            #openitem.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria-hidden= 'true')
+
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#exampleModalLabel.modal-title
+                            span#modal-itemtitle
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') ×
+                        .modal-body
+                            form.offset-md-3().m-1.mt-0
+                                .form-group.m-2
+                                    label board name
+                                    input.form-control(name='name', type='text', placeholder='Enter column name')
+                                    span#modal-itemtitle
+
+
+                                button.btn.btn-primary(type='submit', value='Submit') Save changes
+
 
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
