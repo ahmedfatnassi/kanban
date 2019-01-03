@@ -117,6 +117,3 @@ $(function () {
 });
 
 
-$( function() {
-    $( ".draggable" ).draggable();
-} );

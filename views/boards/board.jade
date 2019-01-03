@@ -2,39 +2,40 @@ extends ../layout
 link(href='/stylesheets/board.css', rel='stylesheet')
 
 block content
-            .background.w-100.h-100(style='background-image: url(/images/backgrounds/'+board.image+'.jpg' )
+            .background.w-100.h-100(classe='container',style='background-image: url(/images/backgrounds/'+board.image+'.jpg' )
                 h1 board name  #{board.board_name}#{board.image}
                 button.btn.btn-primary.ml-5.mb-3(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
                 br
-                if columns!=null
-                    each  column, i  in columns
-                        .w-25.d-inline-block.h-auto.ml-5.columnborder
-                            .card.h-100
-                                .card-header.rounded.columnborder
-                                    | #{column.column_name}
-                                    a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
-                                        img.img-fluid(src="/images/trash.png")
-                                .card-body(id='column' ,class="droptarget" ondrop="drop(event)" ondragenter="dragEnter(event)"
-                                ondragleave = "dragLeave(event)" ondragover="allowDrop(event)")
+                .div(class='board')
+                    if columns!=null
+                        each  column, i  in columns
+                            .w-25.d-inline-block.h-auto.ml-5.columnborder(class="board-column")
+                                .board-column-header.card.h-100
+                                    .card-header.rounded.columnborder
+                                        | #{column.column_name}
+                                        a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
+                                            img.img-fluid(src="/images/trash.png")
+                                    .card-body(id='column' ,class="holder" )
 
-                                        if column.items!=null
-                                            each  item, i  in column.items
-                                                a(data-toggle='modal', data-target='#openitem',data-itemtitle=item.title,data-itemdescription=item.description,data-itemuser=item.assigneduser,data-itemcolor=item.color)
-                                                    .card.mb-3.h-auto(ondragstart="dragStart(event)" draggable="true" id="dragtarget",style='background-color:'+item.color)
-                                                        .card-header
-                                                             h3 #{item.title}
-                                                        .card-body
-                                                            p.card-text
-                                                                | #{item.description}
+                                            if column.items!=null
+                                                each  item, i  in column.items
+                                                    .item(draggable="true",class="box")
+                                                        a(class="openitem",data-toggle='modal', data-target='#openitem')
+                                                            .card.mb-3.h-auto(id="card-drag-area",class="slide",style='background-color:'+item.color)
+                                                                .card-header(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")
+                                                                     h3 #{item.title}
+                                                                .card-body(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")
+                                                                    p.card-text
+                                                                        | #{item.description}
 
-                                    button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val1=column._id) add item
-
-
-
+                                        button.btn.btn-primary.additem(type='button', class="additem",data-toggle='modal', data-target='#additem',data-val1=column._id) add item
 
 
 
-            #addcolumnModal.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria-hidden= 'true')
+
+
+
+            #addcolumnModal.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria- = 'true')
 
                 .modal-dialog(role='document')
                     .modal-content
@@ -64,6 +65,7 @@ block content
                         .modal-header
                             h5#exampleModalLabel.modal-title add item to
 
+                            span#modal-val1
 
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
@@ -92,21 +94,21 @@ block content
 
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+
             #openitem.modal.fade(tabindex = '-1', role = 'dialog', aria-labelledby = 'exampleModalLabel', aria-hidden= 'true')
 
                 .modal-dialog(role='document')
                     .modal-content
                         .modal-header
-                            h5#exampleModalLabel.modal-title
-                            span#modal-itemtitle
+                            span#modal-itemtitle(class="modal-itemtitle")
+                            span#modal-itemdescription
+                            span#modal-itemuser
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
                         .modal-body
                             form.offset-md-3().m-1.mt-0
                                 .form-group.m-2
                                     label board name
-                                    input.form-control(name='name', type='text', placeholder='Enter column name')
-                                    span#modal-itemtitle
 
 
                                 button.btn.btn-primary(type='submit', value='Submit') Save changes

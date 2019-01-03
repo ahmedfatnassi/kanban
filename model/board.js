@@ -96,8 +96,3 @@ module.exports.getMyBoards= function(username,callback){
 };
 
 
-module.exports.updateBoard =function (id,board, callback) {
-    if(board.name!=""){
-
-    }
-}

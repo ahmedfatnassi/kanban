@@ -1,30 +1,53 @@
-function dragStart(event) {
-    event.dataTransfer.setData("Text", event.target.id);
-}
+class App {
 
-function dragEnter(event) {
-    if ( event.target.className == "droptarget" ) {
-        document.getElementById("demo").innerHTML = "Entered the dropzone";
-        event.target.style.border = "3px dotted red";
+    static init() {
+
+        App.box = document.getElementsByClassName('box')[0]
+
+        App.box.addEventListener("dragstart", App.dragstart)
+        App.box.addEventListener("dragend", App.dragend)
+
+        const containers = document.getElementsByClassName('holder')
+
+        for(const container of containers) {
+            container.addEventListener("dragover", App.dragover)
+            container.addEventListener("dragenter", App.dragenter)
+            container.addEventListener("dragleave", App.dragleave)
+            container.addEventListener("drop", App.drop)
+        }
     }
-}
 
-function dragLeave(event) {
-    if ( event.target.className == "droptarget" ) {
-        document.getElementById("demo").innerHTML = "Left the dropzone";
-        event.target.style.border = "";
+    static dragstart() {
+        this.className += " held"
+
+        setTimeout(()=>this.className="invisible", 0)
     }
+
+    static dragend() {
+        this.className = "box"
+    }
+
+    static dragover(e) {
+        e.preventDefault()
+    }
+
+    static dragenter(e) {
+        e.preventDefault()
+        this.className += " hovered"
+    }
+
+    static dragleave() {
+        this.className = "holder"
+    }
+
+    static drop() {
+        this.className = "holder"
+        this.append(App.box)
+    }
+
 }
 
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function drop(event) {
-    event.preventDefault();
-    var data = event.dataTransfer.getData("Text");
-    event.target.appendChild(document.getElementById(data));
-}
+document.addEventListener("DOMContentLoaded", App.init)
 // data-* attributes to scan when populating modal values
 var ATTRIBUTES = ['val1', 'itemtitle', 'itemdescription', 'itemuser','itemcolor'];
 
@@ -45,7 +68,6 @@ $('[data-toggle="modal"]').on('click', function (e) {
         // booleans. That way is dataValue is undefined, the left part of the following
         // Boolean expression evaluate to false and the empty string will be returned
         $modalAttribute.text(dataValue || '');
-        console.log(dataValue);
         $modalAttribute.val(dataValue);
     });
 });

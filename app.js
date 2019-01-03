@@ -21,6 +21,8 @@ var flash = require('connect-flash');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
+
+
 var app = express();
 
 
@@ -58,6 +60,8 @@ app.use(expressValidator({
         }
     }
 }));
+
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
