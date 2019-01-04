@@ -1,55 +1,41 @@
-class App {
 
-    static init() {
-
-        App.box = document.getElementsByClassName('box')[0]
-
-        App.box.addEventListener("dragstart", App.dragstart)
-        App.box.addEventListener("dragend", App.dragend)
-
-        const containers = document.getElementsByClassName('holder')
-
-        for(const container of containers) {
-            container.addEventListener("dragover", App.dragover)
-            container.addEventListener("dragenter", App.dragenter)
-            container.addEventListener("dragleave", App.dragleave)
-            container.addEventListener("drop", App.drop)
-        }
-    }
-
-    static dragstart() {
-        this.className += " held"
-
-        setTimeout(()=>this.className="invisible", 0)
-    }
-
-    static dragend() {
-        this.className = "box"
-    }
-
-    static dragover(e) {
-        e.preventDefault()
-    }
-
-    static dragenter(e) {
-        e.preventDefault()
-        this.className += " hovered"
-    }
-
-    static dragleave() {
-        this.className = "holder"
-    }
-
-    static drop() {
-        this.className = "holder"
-        this.append(App.box)
-    }
-
+/*
+dragula([
+    document.getElementById('1'),
+    document.getElementById('2'),
+    document.getElementById('3'),
+    document.getElementById('4'),
+    document.getElementById('5')
+])
+function dragStart(event) {
+    event.dataTransfer.setData("Text", event.target.id);
 }
 
-document.addEventListener("DOMContentLoaded", App.init)
+function dragEnter(event) {
+    if ( event.target.className == "droptarget" ) {
+        document.getElementById("demo").innerHTML = "Entered the dropzone";
+        event.target.style.border = "3px dotted red";
+    }
+}
+
+function dragLeave(event) {
+    if ( event.target.className == "droptarget" ) {
+        document.getElementById("demo").innerHTML = "Left the dropzone";
+        event.target.style.border = "";
+    }
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData("Text");
+    event.target.appendChild(document.getElementById(data));
+}*/
 // data-* attributes to scan when populating modal values
-var ATTRIBUTES = ['val1', 'itemtitle', 'itemdescription', 'itemuser','itemcolor'];
+var ATTRIBUTES = ['val1', 'val2', 'myvar', 'cc'];
 
 $('[data-toggle="modal"]').on('click', function (e) {
     // convert target (e.g. the button) to jquery object

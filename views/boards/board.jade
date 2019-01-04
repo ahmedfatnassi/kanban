@@ -11,17 +11,17 @@ block content
                         each  column, i  in columns
                             .w-25.d-inline-block.h-auto.ml-5.columnborder(class="board-column")
                                 .board-column-header.card.h-100
-                                    .card-header.rounded.columnborder
+                                    .card-header.rounded.columnborder(class="drag-column-header")
                                         | #{column.column_name}
                                         a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
                                             img.img-fluid(src="/images/trash.png")
-                                    .card-body(id='column' ,class="holder" )
+                                    .card-body(id='column' ,class="drag-inner-list" )
 
                                             if column.items!=null
                                                 each  item, i  in column.items
-                                                    .item(draggable="true",class="box")
+                                                    .item(draggable="true",class="drag-item")
                                                         a(class="openitem",data-toggle='modal', data-target='#openitem')
-                                                            .card.mb-3.h-auto(id="card-drag-area",class="slide",style='background-color:'+item.color)
+                                                            .card.mb-3.h-auto(id="card-drag-area",style='background-color:'+item.color)
                                                                 .card-header(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")
                                                                      h3 #{item.title}
                                                                 .card-body(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")

@@ -1,9 +1,12 @@
-function showhide(boardname) {
-    //console.log(boardname) ;
-    var x = document.getElementById(boardname);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
+$(document).on("click",".hideshow", function () {
+
+
+    var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
+  //  alert('you clicked on button #' + clickedBtnID);
+
+
+    if($("."+clickedBtnID).is(":visible")){
+    $("."+clickedBtnID).fadeOut("slow");}else {
+        $("."+clickedBtnID).show("slow");
     }
-}
+});
