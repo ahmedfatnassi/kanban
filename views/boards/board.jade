@@ -15,11 +15,11 @@ block content
                                         | #{column.column_name}
                                         a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
                                             img.img-fluid(src="/images/trash.png")
-                                    .card-body(id='column' ,class="drag-inner-list" )
+                                    .card-body(id='drag-inner-list' ,class="sortableList" )
 
                                             if column.items!=null
                                                 each  item, i  in column.items
-                                                    .item(draggable="true",class="drag-item")
+                                                    .item(draggable="true",class="ui-state-default")
                                                         a(class="openitem",data-toggle='modal', data-target='#openitem')
                                                             .card.mb-3.h-auto(id="card-drag-area",style='background-color:'+item.color)
                                                                 .card-header(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")
@@ -117,3 +117,4 @@ block content
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
     script(src='/javascripts/boardscript.js', rel='script')
+    script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js')

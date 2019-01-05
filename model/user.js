@@ -50,7 +50,7 @@ module.exports.createUser=function (newUser,callback) {
     });
 };
 module.exports.deleteUserById = function(usersId,callback){
-  User.findOneAndDelete({id:usersId},function(err ,user){
+  User.findOneAndDelete({_id:usersId},function(err ,user){
       console.log("user was delete with success "+user) ;
 
   })

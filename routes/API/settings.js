@@ -13,7 +13,7 @@ var baseDIR = 'admin/';
 ///router.use(flash());
 
 
-router.get('/delete/:name',ensureauthenticated, function (req, res, next) {
+/*router.get('/delete/:name',ensureauthenticated, function (req, res, next) {
     board.getByBoardName(req.params.board_name, function (err, board) {
         if (err) throw err;
         if (!board) {
@@ -25,7 +25,7 @@ router.get('/delete/:name',ensureauthenticated, function (req, res, next) {
             return res.redirect('/settings');
         })
     });
-});
+});*/
 
 router.post('/edit/board/:id',ensureauthenticated,function (req, res, next) {
     var boardf=[] ;
@@ -111,12 +111,23 @@ router.get('/',ensureauthenticated, function (req, res) {
 });
 });
 router.get('/delete/user/:userId',ensureauthenticated,function (req,res) {
-    user.findOneAndRemove({id:req.params.userId}).exec();
+    var userid=req.params.userId;
+    console.log(req.sessionID);
+    if(userid==req.sessionID){
+
+    }else {
+
+        user.deleteUserById(userid, function (err) {
+            if (err) throw err;
+        });
+    }
     res.location('/settings/');
     res.redirect('/settings/');
 });
-router.get('/delete/:name',ensureauthenticated,function (req,res,next){
-    board.deleteOne({board_name:req.params.name}, function (err) {                     //  to delete some testing board
+router.get('/delete/:name',ensureauthenticated,function (req,res){
+    var boardname=req.params.name ;
+    console.log(boardname);
+    board.deleteOne({board_name:boardname}, function (err) {                     //  to delete some testing board
         if (err) throw err;
         console.log("board "+req.params.name+" success delete ")  ;
     });

@@ -101,3 +101,18 @@ function spamCheck() {
     // to allow your HTML prevention of submission, make sure to always return a boolean value.
     return true;
 }
+$(document).ready(function () {
+    $(".sortableList").sortable({
+        revert: true,
+        helper:"clone",
+        opacity:0.5,
+        cursor:"crosshair",
+        connectWith: ".sortableList"
+    });
+    $(".draggable").draggable({
+        connectToSortable: '.sortableList',
+        cursor: 'pointer',
+        helper: 'clone',
+        revert: 'invalid'
+    });
+});
