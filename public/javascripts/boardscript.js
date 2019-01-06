@@ -107,7 +107,26 @@ $(document).ready(function () {
         helper:"clone",
         opacity:0.5,
         cursor:"crosshair",
-        connectWith: ".sortableList"
+        connectWith: ".sortableList" ,
+        update: function (event, ui) {
+            var board_name=$("h2:first").text();
+            var column=ui.item.parent().prev().attr('id') ;
+            var itemnext=ui.item.next().children().text();
+            var itemprev=ui.item.prev().children().text();
+            console.log("prev "+itemprev);
+            console.log("next " +itemnext);
+
+            $.ajax({
+                contentType: 'application/json',
+                method:'POST' ,
+                url: '/board/updateitem/'+board_name,
+                data:JSON.stringify({newcolumn:column}),
+                success:function(response){
+                        console.log(response);
+                }
+
+            });
+        }
     });
     $(".draggable").draggable({
         connectToSortable: '.sortableList',

@@ -59,6 +59,10 @@ router.get('/',function (req,res) {
    res.redirect('/login');
    res.location('/login');
 });
+router.get('/updateitem',function (req,res) {
+res.send("succrherehetess");
+console.log("requist"+req) ;
+});
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: 'Invalid username or password!'

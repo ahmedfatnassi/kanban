@@ -55,6 +55,22 @@ router.use(flash());
 
 
  });
+router.post('/updateitem/:boardname',ensureauthenticated,function (req,res) {
+    var boardname = req.params.boardname ;
+
+    var newcolumn = req.body.newcolumn ;
+    var oldposition = req.body.oldposition ;
+    var newposition = req.body.newposition ;
+console.log("ajax test "+newcolumn);
+        req.flash('success', 'item created successfully!');
+
+
+
+
+
+
+});
+
 router.post('/additem/:boardname',ensureauthenticated,function (req,res) {
    var boardname = req.params.boardname ;
     var title = req.body.title ;

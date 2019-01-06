@@ -3,7 +3,8 @@ link(href='/stylesheets/board.css', rel='stylesheet')
 
 block content
             .background.w-100.h-100(classe='container',style='background-image: url(/images/backgrounds/'+board.image+'.jpg' )
-                h1 board name  #{board.board_name}#{board.image}
+                h1 board name
+                h2 #{board.board_name}
                 button.btn.btn-primary.ml-5.mb-3(type='button', data-toggle='modal', data-target='#addcolumnModal') add column
                 br
                 .div(class='board')
@@ -11,8 +12,9 @@ block content
                         each  column, i  in columns
                             .w-25.d-inline-block.h-auto.ml-5.columnborder(class="board-column")
                                 .board-column-header.card.h-100
-                                    .card-header.rounded.columnborder(class="drag-column-header")
+                                    .card-header.rounded.columnborder(id=column.column_name)
                                         | #{column.column_name}
+
                                         a(href="/board/delete/"+board.board_name+'/'+column._id).fa.fa-trash.d-inline-flex.float-right
                                             img.img-fluid(src="/images/trash.png")
                                     .card-body(id='drag-inner-list' ,class="sortableList" )
