@@ -57,12 +57,21 @@ router.use(flash());
  });
 router.post('/updateitem/:boardname',ensureauthenticated,function (req,res) {
     var boardname = req.params.boardname ;
+    var itemid =req.body.itemid ;
+    var oldcolumn=req.body.oldcolumnid ;
+    var newcolumn = req.body.newcolumnid ;
+    var nextItemlId = req.body.nextitem ;
+    var prevItemId = req.body.previtem ;
+console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+" "+prevItemId);
+    board.changeItemPosition(boardname,oldcolumn,itemid,newcolumn,prevItemId,nextItemlId,function(err ,savedboard){
+        if(err) throw err ;
+        console.log(savedboard) ;
+    })
 
-    var newcolumn = req.body.newcolumn ;
-    var oldposition = req.body.oldposition ;
-    var newposition = req.body.newposition ;
-console.log("ajax test "+newcolumn);
-        req.flash('success', 'item created successfully!');
+
+
+
+
 
 
 
@@ -127,8 +136,8 @@ router.get('/display/:name',ensureauthenticated,function (req,res) {
     var items=[] ;
     board.getallcolumns(req.params.name,function (err,board){
         if (err) throw err ;
-        //console.log(board) ;
-
+        console.log(board) ;
+        console.log(board.columns[0].items[0]) ;
     user.getAllUsers(function (err,users) {
         res.render(baseDIR+'board',{title:'board/:name',layout:'layout',board:board,columns:board.columns,users:users});
     });

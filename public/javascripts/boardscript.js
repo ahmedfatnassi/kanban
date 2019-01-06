@@ -102,25 +102,35 @@ function spamCheck() {
     return true;
 }
 $(document).ready(function () {
+    var columnstart ;
     $(".sortableList").sortable({
         revert: true,
         helper:"clone",
         opacity:0.5,
         cursor:"crosshair",
         connectWith: ".sortableList" ,
-        update: function (event, ui) {
+        start: function(event, ui) {
+          //console.log(ui.item.parent().prev().text());
+          columnstart=ui.item.parent().prev().attr('id') ;
+        },
+        stop: function (event, ui) {
             var board_name=$("h2:first").text();
             var column=ui.item.parent().prev().attr('id') ;
-            var itemnext=ui.item.next().children().text();
-            var itemprev=ui.item.prev().children().text();
-            console.log("prev "+itemprev);
-            console.log("next " +itemnext);
+            var itemnext=ui.item.next().attr('id');
+            var itemprev=ui.item.prev().attr('id');
+            var itemid=ui.item.attr('id') ;
+
 
             $.ajax({
                 contentType: 'application/json',
                 method:'POST' ,
                 url: '/board/updateitem/'+board_name,
-                data:JSON.stringify({newcolumn:column}),
+                data:JSON.stringify({newcolumnid:column ,
+                    itemid:itemid,
+                    oldcolumnid:columnstart
+                    ,nextitem:itemnext,
+                    previtem:itemprev
+                }),
                 success:function(response){
                         console.log(response);
                 }

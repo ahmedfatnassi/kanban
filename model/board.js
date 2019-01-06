@@ -62,11 +62,125 @@ module.exports.deletecolumn =function(boardname,column_id,callback){
 
 
 } ;
+var itemfound =false ;
+var i_item ;
+var j_item ;
+var j_prev_pos =-1 ;
+var i_prev_pos =-1 ;
+var i_next_pos =-1 ;
+var j_next_pos =-1 ;
+module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumnID,prevItemId,nextItemId,callback){
+
+
+    board.findOneAndUpdate( {board_name:boardname})
+        .populate({
+            path :'columns'
+            , populate :[
+                {path:'items'}
+            ]})
+        .then((boardTochange)=>{
+            console.log("fchrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+boardTochange);
+            for (var i = 0; i < boardTochange.columns.length; i++) {
+
+               // console.log("Iam here ");
+
+                for (var j = 0; j < boardTochange.columns[i].items.length; j++) {
+                    if (oldColumId === boardTochange.columns[i]._id)
+                        if (itemId === boardTochange.columns[i].items[j]._id) {
+                            /// remove item from column
+                            i_item = i;
+                            j_item = j;
+                            itemfound = true;
+                            console.log(i_item+ +j_item);
+                            console.log("itemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm tranported " + boardTochange.columns[i_item].items[j_item]);
+
+                        }
+
+                    if (prevItemId != "undefined" && prevItemId === boardTochange.columns[i].items[j]._id) {
+                        i_prev_pos = i;
+                        j_prev_pos = j;
+                    } else {
+                        if (nextItemId != "undefined" && nextItemId === boardTochange.columns[i].items[j]._id) {
+                            i_next_pos = i;
+                            j_next_pos = j;
+                        }
+                    }
+                }
+            }
+
+            if (prevItemId != "undefined"){
+
+            }else{
+                if(nextItemId != "undefined"){
+
+                }else{
+                    boardTochange.columns[i_prev_pos].items.push(boardTochange.columns[i_item].items[j_item])
+                }
+            }
+            var itemfoundposition = false;
+          /*  for (var i = 0; i < boardTochange.columns.length; i++) {
+                if (newColumnID == boardTochange.columns[i]._id) {
+                    for (var j = 0; j < boardTochange.columns[i].items.length; j++) {
+                        if (prevItemId != "undefined" && prevItemId === boardTochange.columns[i].items[j]._id) {
+
+                            /*     board.columns.update(
+                                     {board_name: boardname },
+
+                                     {
+                                         $push: {
+                                             items: {
+                                                 $each: [ item],
+                                                 $position:j+1
+                                             }
+                                         }
+                                     }
+                                 )
+         */
+                    /*    } else {
+                            if (nextItemId != "undefined" && nextItemId === boardTochange.columns[i].items[j]._id) {
+
+                                /*board.columns.update(
+                                    {board_name: boardname },
+
+                                    {
+                                        $push: {
+                                            items: {
+                                                $each: [ item],
+                                                $position:j-1
+                                            }
+                                        }
+                                    }
+                                )
+      */
+
+                       /*     } else {
+                               // boardTochange.columns[i].items.push(boardTochange.columns[i_item].items[j_item]);
+                            }
+                        }
+
+                        if (itemfoundposition) {
+                            boardTochange.columns[i].items[j].position = boardTochange.columns[i].items[j].position + 1;
+                        }
+
+
+                    }
+                }
+            }*/
+        })
+
+        .exec(callback)
+
+
+
+};
 //
 module.exports.getallcolumns=function(boardname,callback){
     board.findOne({board_name:boardname})
-        .populate({path :'columns'
-        , populate :{path:'items'}})
+        .populate({
+            path :'columns'
+        , populate :[
+            {path:'items'}
+            ]})
         .exec(callback)
 
 

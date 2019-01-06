@@ -31,7 +31,7 @@ module.exports.ColumnAddItem=function(columntoupdate_id,item,callback){
     column.findOne({_id:columntoupdate_id})
         .then(function (column, err) {
             item.position=column.items.length ;
-            console.log("here item" +item );
+
             column.items.push(item);
            // console.log("after board " +column);
 
