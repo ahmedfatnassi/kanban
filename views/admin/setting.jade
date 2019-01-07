@@ -52,32 +52,56 @@ block content
                                                         .form-group.m-2
                                                             label(for='comment') #{user.username}
                                                             input.form-check-input(type='checkbox' name='users' value=user.username)
-                                    .form-group.m-2
-                                        if board.columns != null
-                                            each column,i in board.columns
 
-                                                    input(type='checkbox' ,value =column.column_name)
-                                                    label #{column.column_name}
-                                                    br
                                     .form-group.boards
-                                        label
-                                            input(type='radio' ,value ='ice',name='image')
-                                            img.mb-1.mr-1(src='/images/backgrounds/ice.jpg' ,width='100',height='70')
-                                        label
-                                            input(type='radio' ,value ='gazelle',name='image')
-                                            img.mb-1.mr-1(src='/images/backgrounds/gazelle.jpg' ,width='100p',height='70')
-                                        label
-                                            input(type='radio' ,value ='desert',name='image')
-                                            img.mb-1.mr-1(src='/images/backgrounds/desert.jpg' ,width='100',height='70')
-                                        label
-                                            input(type='radio' ,value ='city',name='image')
-                                            img.mb-1.mr-1(src='/images/backgrounds/city.jpg' ,width='100p',height='70')
-                                        label
-                                            input(type='radio' ,value ='sea',name='image')
-                                            img.mb-1.mr-1(src='/images/backgrounds/sea.jpg' ,width='100p',height='70')
-                                        label
-                                            input(type='radio' ,value ='galaxy',name='image')
-                                            img.mb-1.mr-1(src='/images/backgrounds/galaxy.jpg' ,width='100p',height='70')
+                                        if(board.image=="ice")
+                                            label
+                                                input(type='radio' ,value ='ice',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/ice.jpg' ,width='100',height='70')
+                                        else
+                                            label
+                                                input(type='radio' ,value ='ice',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/ice.jpg' ,width='100',height='70')
+                                        if(board.image == "city")
+                                            label
+                                                input(type='radio' ,value ='city',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/city.jpg' ,width='100',height='70')
+                                        else
+                                            label
+                                                input(type='radio' ,value ='city',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/city.jpg' ,width='100',height='70')
+                                        if(board.image == "desert")
+                                            label
+                                                input(type='radio' ,value ='ice',name='desert',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/desert.jpg' ,width='100',height='70')
+                                        else
+                                            label
+                                                input(type='radio' ,value ='desert',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/desert.jpg' ,width='100',height='70')
+                                        if(board.image == "galaxy")
+                                            label
+                                                input(type='radio' ,value ='galaxy',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/galaxy.jpg' ,width='100',height='70')
+                                        else
+                                            label
+                                                input(type='radio' ,value ='galaxy',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/galaxy.jpg' ,width='100',height='70')
+                                        if(board.image == "gazelle")
+                                            label
+                                                input(type='radio' ,value ='gazelle',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/gazelle.jpg' ,width='100',height='70')
+                                        else
+                                            label
+                                                input(type='radio' ,value ='gazelle',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/gazelle.jpg' ,width='100',height='70')
+                                        if(board.image == "sea")
+                                            label
+                                                input(type='radio' ,value ='sea',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/sea.jpg' ,width='100',height='70')
+                                        else
+                                            label
+                                                input(type='radio' ,value ='sea',name='image',checked='')
+                                                img.mb-1.mr-1(src='/images/backgrounds/sea.jpg' ,width='100',height='70')
 
                                     button.btn.btn-primary(type='submit', value='Submit') Save changes
         .card.w-25.m-2.h-auto
@@ -94,9 +118,9 @@ block content
                                     div.shadow-lg.p-3.mb-5.bg-white.rounded(style='display:none',class =user._id+"a")
                                         form.col-md-6.offset-md-3(method='post', action='/users/register')
                                             .form-group
-                                                input.form-control(name='username', type='text', placeholder='Enter Username')
+                                                input.form-control(name='username', type='text', placeholder='Enter Username',value=user.username)
                                             .form-group
-                                                input.form-control(name='email', type='text', placeholder='your email')
+                                                input.form-control(name='email', type='text', placeholder='your email',value=user.email)
                                             .form-group
                                                 input.form-control(name='password', type='password', placeholder='Enter Password')
 

@@ -145,3 +145,7 @@ $(document).ready(function () {
         revert: 'invalid'
     });
 });
+$("#checkAll").click(function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+    console.log("lzehfhdfknlkf,mll")
+});

@@ -65,17 +65,10 @@ router.post('/updateitem/:boardname',ensureauthenticated,function (req,res) {
 console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+" "+prevItemId);
     board.changeItemPosition(boardname,oldcolumn,itemid,newcolumn,prevItemId,nextItemlId,function(err ,savedboard){
         if(err) throw err ;
-        console.log(savedboard) ;
-    })
+        console.log("final shit "+savedboard) ;
 
 
-
-
-
-
-
-
-
+    });
 
 
 });

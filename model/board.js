@@ -62,17 +62,17 @@ module.exports.deletecolumn =function(boardname,column_id,callback){
 
 
 } ;
-var itemfound =false ;
-var i_item ;
-var j_item ;
-var j_prev_pos =-1 ;
-var i_prev_pos =-1 ;
-var i_next_pos =-1 ;
-var j_next_pos =-1 ;
+
 module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumnID,prevItemId,nextItemId,callback){
-
-
-    board.findOneAndUpdate( {board_name:boardname})
+    var i_item ;
+    var j_item ;
+    var itemfound =false ;
+    var newcolumnId=-1;
+    var j_prev_pos =-1 ;
+    var i_prev_pos =-1 ;
+    var i_next_pos =-1 ;
+    var j_next_pos =-1 ;
+    board.findOne( {board_name:boardname})
         .populate({
             path :'columns'
             , populate :[
@@ -82,11 +82,15 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
             console.log("fchrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+boardTochange);
             for (var i = 0; i < boardTochange.columns.length; i++) {
 
-               // console.log("Iam here ");
-
+                console.log("Iam here ");
+                if (newColumnID == boardTochange.columns[i]._id){
+                    newcolumnId=i;
+                }
                 for (var j = 0; j < boardTochange.columns[i].items.length; j++) {
-                    if (oldColumId === boardTochange.columns[i]._id)
-                        if (itemId === boardTochange.columns[i].items[j]._id) {
+                    console.log("iam there "+itemId+"   "+boardTochange.columns[i].items[j]._id);
+;
+                        if (itemId == boardTochange.columns[i].items[j]._id) {
+                            console.log("shit shit shit");
                             /// remove item from column
                             i_item = i;
                             j_item = j;
@@ -107,17 +111,14 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
                     }
                 }
             }
+            console.log("vide vide vide " +prevItemId+" "+nextItemId+" "+newcolumnId);
 
-            if (prevItemId != "undefined"){
 
-            }else{
-                if(nextItemId != "undefined"){
+                    boardTochange.columns[newcolumnId].items.push(boardTochange.columns[i_item].items[j_item]) ;
+                    boardTochange.columns[i_item].items.pull({_id:itemId});
+                    console.log(boardTochange);
 
-                }else{
-                    boardTochange.columns[i_prev_pos].items.push(boardTochange.columns[i_item].items[j_item])
-                }
-            }
-            var itemfoundposition = false;
+            //var itemfoundposition = false;
           /*  for (var i = 0; i < boardTochange.columns.length; i++) {
                 if (newColumnID == boardTochange.columns[i]._id) {
                     for (var j = 0; j < boardTochange.columns[i].items.length; j++) {
@@ -166,9 +167,11 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
                     }
                 }
             }*/
-        })
+                       boardTochange.save(callback);
+        });
 
-        .exec(callback)
+
+
 
 
 
