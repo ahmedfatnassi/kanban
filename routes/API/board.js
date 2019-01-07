@@ -86,18 +86,23 @@ console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+"
                     i_item = i;
                     j_item = j;
                     itemfound = true;
-                    console.log(i_item+ +j_item);
-                    console.log("itemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm tranported " + boardTochange.columns[i_item].items[j_item]);
-
+                    console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnn ");
                 }
 
-                if (prevItemId != "undefined" && prevItemId === boardTochange.columns[i].items[j]._id) {
+                if (prevItemId !== "undefined" && prevItemId == boardTochange.columns[i].items[j]._id) {
                     i_prev_pos = i;
                     j_prev_pos = j;
+                }else {
+                    if (nextItemlId !== "undefined" && nextItemlId == boardTochange.columns[i].items[j]._id) {
+                        i_next_pos = i;
+                        j_next_pos = j;
+                    }
                 }
             }
         }
 ///creation de sudocument
+
+
         var itemtransported=item(boardTochange.columns[i_item].items[j_item]);
         column.deleteitem(oldcolumn,itemid,function (err) {
             if(err) throw err ;
@@ -106,10 +111,29 @@ console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+"
             if (err) throw  err;
             //console.log("item" + itemcreate);
 
-            column.ColumnAddItem(newcolumn, itemcreate, function (err, column) {
-                if (err) throw  err;
-                console.log(column);
-            });
+            console.log("position where should go "+j_prev_pos+" "+j_next_pos) ;
+            if(j_prev_pos===-1 &&j_next_pos===-1 ){
+
+                console.log("yeaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+                column.ColumnAddItem(newcolumn, itemcreate, function (err, column) {
+                    if (err) throw  err;
+                    console.log(column);
+                });
+            }else{
+                if(j_prev_pos===-1){
+                    console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+                    column.ColumnAddItematposition(newcolumn, itemcreate,0, function (err, column) {
+                        if (err) throw  err;
+                        console.log(column);
+                    });
+                }else{
+                    console.log("lllllllllllllllllllllllllllllllllllllll")
+                    column.ColumnAddItematposition(newcolumn, itemcreate,j_prev_pos+1, function (err, column) {
+                        if (err) throw  err;
+                        console.log(column);
+                    });
+                }
+            }
         });
 
     });

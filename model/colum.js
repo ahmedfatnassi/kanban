@@ -40,6 +40,11 @@ module.exports.ColumnAddItem=function(columntoupdate_id,item,callback){
         });
 
 };
+module.exports.ColumnAddItematposition=function(columntoupdate_id,item,position,callback){
+    column.updateOne({_id:columntoupdate_id},{ $push:{items:{$each:[item], $position: position}}})
+        .exec(callback);
+
+};
 module.exports.deleteitem =function(columnid,item_id,callback){
     column.findOne({_id:columnid})
         .then((column)=>{column.items.pull({_id:item_id}) ;
