@@ -62,6 +62,14 @@ module.exports.deletecolumn =function(boardname,column_id,callback){
 
 
 } ;
+module.exports.deleteItem =function(boardname,column_id,item_id,callback){
+    board.findOne({"board_name":boardname,"columns_id":column_id,"columns.items._id":item_id})
+        .then((newboard)=>{newboard.columns.items.pull({_id:column_id}) ;
+            newboard.save(callback);
+        }) ;
+
+
+} ;
 
 module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumnID,prevItemId,nextItemId,callback){
     var i_item ;
@@ -72,7 +80,7 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
     var i_prev_pos =-1 ;
     var i_next_pos =-1 ;
     var j_next_pos =-1 ;
-    board.findOne( {board_name:boardname})
+    board.findOne({board_name:boardname})
         .populate({
             path :'columns'
             , populate :[
@@ -88,9 +96,8 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
                 }
                 for (var j = 0; j < boardTochange.columns[i].items.length; j++) {
                     console.log("iam there "+itemId+"   "+boardTochange.columns[i].items[j]._id);
-;
+
                         if (itemId == boardTochange.columns[i].items[j]._id) {
-                            console.log("shit shit shit");
                             /// remove item from column
                             i_item = i;
                             j_item = j;
@@ -115,7 +122,7 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
 
 
                     boardTochange.columns[newcolumnId].items.push(boardTochange.columns[i_item].items[j_item]) ;
-                    boardTochange.columns[i_item].items.pull({_id:itemId});
+     //               boardTochange.columns[i_item].items.pull({_id:itemId});
                     console.log(boardTochange);
 
             //var itemfoundposition = false;
@@ -167,6 +174,7 @@ module.exports.changeItemPosition=function(boardname,oldColumId,itemId,newColumn
                     }
                 }
             }*/
+                       console.log("yeahhhhhh") ;
                        boardTochange.save(callback);
         });
 

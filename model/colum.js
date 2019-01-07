@@ -40,6 +40,14 @@ module.exports.ColumnAddItem=function(columntoupdate_id,item,callback){
         });
 
 };
+module.exports.deleteitem =function(columnid,item_id,callback){
+    column.findOne({_id:columnid})
+        .then((column)=>{column.items.pull({_id:item_id}) ;
+            column.save(callback);
+        }) ;
+
+
+} ;
 module.exports.getColumnById= function (_id,callback) {
     column.findById(_id,callback) ;
 };

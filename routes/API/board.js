@@ -63,10 +63,54 @@ router.post('/updateitem/:boardname',ensureauthenticated,function (req,res) {
     var nextItemlId = req.body.nextitem ;
     var prevItemId = req.body.previtem ;
 console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+" "+prevItemId);
-    board.changeItemPosition(boardname,oldcolumn,itemid,newcolumn,prevItemId,nextItemlId,function(err ,savedboard){
+    var i_item ;
+    var j_item ;
+    var itemfound =false ;
+    var newcolumnId=-1;
+    var j_prev_pos =-1 ;
+    var i_prev_pos =-1 ;
+    var i_next_pos =-1 ;
+    var j_next_pos =-1 ;
+    board.getallcolumns(boardname,function(err ,boardTochange){
         if(err) throw err ;
-        console.log("final shit "+savedboard) ;
 
+        for (var i = 0; i < boardTochange.columns.length; i++) {
+
+
+
+            for (var j = 0; j < boardTochange.columns[i].items.length; j++) {
+
+
+                if (itemid == boardTochange.columns[i].items[j]._id) {
+                    /// remove item from column
+                    i_item = i;
+                    j_item = j;
+                    itemfound = true;
+                    console.log(i_item+ +j_item);
+                    console.log("itemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm tranported " + boardTochange.columns[i_item].items[j_item]);
+
+                }
+
+                if (prevItemId != "undefined" && prevItemId === boardTochange.columns[i].items[j]._id) {
+                    i_prev_pos = i;
+                    j_prev_pos = j;
+                }
+            }
+        }
+///creation de sudocument
+        var itemtransported=item(boardTochange.columns[i_item].items[j_item]);
+        column.deleteitem(oldcolumn,itemid,function (err) {
+            if(err) throw err ;
+        });
+        item.createItem(itemtransported,function(err,itemcreate ) {
+            if (err) throw  err;
+            //console.log("item" + itemcreate);
+
+            column.ColumnAddItem(newcolumn, itemcreate, function (err, column) {
+                if (err) throw  err;
+                console.log(column);
+            });
+        });
 
     });
 
