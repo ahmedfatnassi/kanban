@@ -86,7 +86,6 @@ console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+"
                     i_item = i;
                     j_item = j;
                     itemfound = true;
-                    console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnn ");
                 }
 
                 if (prevItemId !== "undefined" && prevItemId == boardTochange.columns[i].items[j]._id) {
@@ -111,23 +110,19 @@ console.log( boardname +" "+itemid+" "+oldcolumn+" "+newcolumn+" "+nextItemlId+"
             if (err) throw  err;
             //console.log("item" + itemcreate);
 
-            console.log("position where should go "+j_prev_pos+" "+j_next_pos) ;
             if(j_prev_pos===-1 &&j_next_pos===-1 ){
 
-                console.log("yeaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
                 column.ColumnAddItem(newcolumn, itemcreate, function (err, column) {
                     if (err) throw  err;
                     console.log(column);
                 });
             }else{
                 if(j_prev_pos===-1){
-                    console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
                     column.ColumnAddItematposition(newcolumn, itemcreate,0, function (err, column) {
                         if (err) throw  err;
                         console.log(column);
                     });
                 }else{
-                    console.log("lllllllllllllllllllllllllllllllllllllll")
                     column.ColumnAddItematposition(newcolumn, itemcreate,j_prev_pos+1, function (err, column) {
                         if (err) throw  err;
                         console.log(column);

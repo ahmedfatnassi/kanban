@@ -22,7 +22,7 @@ html(lang='en')
         // Navigation
         nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.static-top.m-0
             .container
-                a.navbar-brand(href='/index') Kanban app
+                a.navbar-brand(href='/boards') Kanban app
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
                     span.navbar-toggler-icon
                 #navbarResponsive.collapse.navbar-collapse
@@ -32,23 +32,15 @@ html(lang='en')
                                 a.nav-link(href='/boards')
                                     | boards
                                     span.sr-only (current)
+
                             li.nav-item
-                                a.nav-link(href='/index') About
-                            li.nav-item
-                                a.nav-link(href='/index') Services
+                                a.nav-link(href='/users/register') register
                             li.nav-item
                                 a.nav-link(href='/settings/') settings
 
                             li.nav-item
                                 a.nav-link(href='/index/logout') Logout
-                            li.nav-item.dropdown
-                                a#navbarDropdown.nav-link.dropdown-toggle(href='', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                    | Dropdown
-                                .dropdown-menu(aria-labelledby='navbarDropdown')
-                                    a.dropdown-item(href='/users/register') register
-                                    a.dropdown-item(href='#') Another action
-                                    .dropdown-divider
-                                    a.dropdown-item(href='#') Something else here
+
 
 
 

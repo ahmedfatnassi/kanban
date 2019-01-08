@@ -2,11 +2,11 @@ extends layout
 
 block content
 
-    .container
+    .background.w-100.h-100(style='background-image: url(/images/background.jpeg')
         section.login-block.active
-            .container
-            .row
-            .col-md-4.login-sec
+
+
+            .col-md-4.login-sec.w-25.h-25.ml-5.ml-5.mt-5(class="loginsquare",style="background-color:white;")
                 h2.text-center Login Now
 
                 form.login-form.col-md-6.offset-md-3(method='post', action='/login')
@@ -22,31 +22,3 @@ block content
                             label.ml-4 Remember Me
                         button.btn.btn-login.float-right(type='submit') Submit
 
-            .col-md-8.banner-sec
-                #carouselExampleIndicators.carousel.slide(data-ride='carousel')
-                    ol.carousel-indicators
-                        li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
-                        li(data-target='#carouselExampleIndicators', data-slide-to='1')
-                        li(data-target='#carouselExampleIndicators', data-slide-to='2')
-                    .carousel-inner(role='listbox')
-                        .carousel-item.active
-                            img.d-block.img-fluid(src='https://static.pexels.com/photos/33972/pexels-photo.jpg', alt='First slide')
-                            .carousel-caption.d-none.d-md-block
-                                .banner-text
-                                    h2 This is Heaven
-                                    p
-                                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        .carousel-item
-                            img.d-block.img-fluid(src='https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg', alt='First slide')
-                            .carousel-caption.d-none.d-md-block
-                                .banner-text
-                                    h2 This is Heaven
-                                    p
-                                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        .carousel-item
-                            img.d-block.img-fluid(src='https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg', alt='First slide')
-                            .carousel-caption.d-none.d-md-block
-                                .banner-text
-                                    h2 This is Heaven
-                                    p
-                                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation

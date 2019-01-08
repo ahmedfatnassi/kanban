@@ -70,7 +70,7 @@ router.post('/login', passport.authenticate('local', {
     console.log('Logged in successfully');
     req.flash('success', 'Logged in successfully!');
     console.log("login success") ;
-    return res.redirect('/index');
+    return res.redirect('/boards/');
 });
 
 module.exports = router;

@@ -25,7 +25,8 @@ block content
                                                         a(class="openitem",data-toggle='modal', data-target='#openitem')
                                                             .card.mb-3.h-auto(id="card-drag-area",style='background-color:'+item.color)
                                                                 .card-header(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")
-                                                                     h3 #{item.title}
+                                                                     h3.d-inline-block #{item.title}
+                                                                     h5.float-right #{item.assigneduser}
                                                                 .card-body(data-itemtitle=item.title+"",data-itemdescription=item.description+"",data-itemuser=item.assigneduser+"",data-itemcolor=item.color+"")
                                                                     p.card-text
                                                                         | #{item.description}
@@ -48,12 +49,12 @@ block content
                         .modal-body
                             form.offset-md-3(method='post', action='/board/addcolumn/'+board.board_name).m-1.mt-0
                                 .form-group.m-2
-                                    label board name
+                                    label column name
                                     input.form-control(name='name', type='text', placeholder='Enter column name')
 
 
 
-                                button.btn.btn-primary(type='submit', value='Submit') Save changes
+                                button.btn.btn-primary.float-right(type='submit', value='Submit') create column
 
 
                         .modal-footer
@@ -65,34 +66,33 @@ block content
                 .modal-dialog(role='document')
                     .modal-content
                         .modal-header
-                            h5#exampleModalLabel.modal-title add item to
+                            h4#exampleModalLabel.modal-title add item to
 
-                            span#modal-val1
 
                             button.close(type='button', data-dismiss='modal', aria-label='Close')
                                 span(aria-hidden='true') ×
                         .modal-body
                             form.offset-md-3(method='post', action='/board/additem/'+board.board_name).m-1.mt-0
                                 .form-group.m-2
-                                    label title
+                                    h4 title
                                     input.form-control(name='title', type='text', placeholder='Enter title ')
 
                                 .form-group.m-2
-                                    label(for='comment') description
+                                    h4(for='comment') description
                                     textarea#comment.form-control(columns="150",rows='5',name='description',placeholder="description")
                                 .form-group.m-2
-                                    label(for='inputState') State
+                                    label(for='inputState') Assigned user
                                         select#inputState.form-control(name ="user")
                                             if users
                                                 each user ,i in users
                                                         option(value =user.username) #{user.username}
                                 .form-group.m-2
-                                    label(for='comment') Choose color
+                                    h4(for='comment') Choose color
                                     input#color(name='color', type='color', value='#FFFF00')
 
                                 input#modal-val1(type='hidden',name='columnid')
 
-                                button.btn.btn-primary(type='submit', value='Submit') Save changes
+                                button.btn.btn-primary.float-right(type='submit', value='Submit') create item
 
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
