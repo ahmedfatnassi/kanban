@@ -4,7 +4,7 @@ var schema = mongoose.Schema ;
 var bcrypt = require('bcrypt');
 
 // user schema
-mongoose.connect('mongodb://localhost/nodeauth', function (err) {
+mongoose.connect('mongodb://mongo/nodeauth', function (err) {
 
     if (err) throw err;
 
